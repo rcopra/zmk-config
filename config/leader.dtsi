@@ -16,7 +16,7 @@
 /* Swedish characters */
 ZMK_LEADER_SEQUENCE(sv_ae,      &sv_ae,         A E)  // ä
 ZMK_LEADER_SEQUENCE(sv_ao,      &sv_ao,         A O)  // å
-ZMK_LEADER_SEQUENCE(sv_oe,      &sv_oe,         O E)  // ö
+ZMK_LEADER_SEQUENCE(sv_oe,      &sv_oe,         O)    // ö
 
 /* German characters */
 ZMK_LEADER_SEQUENCE(de_eszett,  &de_eszett,     S)  // ß
