@@ -13,10 +13,12 @@
         }; \
     };
 
-/* German umlauts */
-ZMK_LEADER_SEQUENCE(de_ae,      &de_ae,         A)  // ä
-ZMK_LEADER_SEQUENCE(de_oe,      &de_oe,         O)  // ö
-ZMK_LEADER_SEQUENCE(de_ue,      &de_ue,         U)  // ü
+/* Swedish characters */
+ZMK_LEADER_SEQUENCE(se_ae,      &se_ae,         AE)  // ä
+ZMK_LEADER_SEQUENCE(se_ao,      &se_ao,         AO)  // å
+ZMK_LEADER_SEQUENCE(se_oe,      &se_oe,         OE)  // ö
+
+/* German characters */
 ZMK_LEADER_SEQUENCE(de_eszett,  &de_eszett,     S)  // ß
 
 /* Greek letters */
