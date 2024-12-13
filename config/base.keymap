@@ -88,25 +88,29 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS)  // right-hand HRMs
     hold-trigger-key-positions = <0>;
 
 &mt { MT_CORE };
-ZMK_HOLD_TAP(mt_home, bindings = <&masked_home>, <&kp>; MT_CORE)
-ZMK_HOLD_TAP(mt_end, bindings = <&masked_end>, <&kp>; MT_CORE)
 
-#define NAV_LEFT  &mt LGUI(LEFT)   LEFT   // tap: left  | long-tap: beginning of line
-#define NAV_RIGHT &mt LGUI(RIGHT)  RIGHT  // tap: right | long-tap: end       of line
-#define NAV_UP    &mt LGUI(UP)     UP     // tap: up    | long-tap: beginning of document
-#define NAV_DOWN  &mt LGUI(DOWN)   DOWN   // tap: down  | long-tap: end       of document
-#define NAV_BSPC  &mt LALT(BSPC)   BSPC   // tap: bspc  | long-tap: delete word backward
-#define NAV_DEL   &mt LALT(DEL)    DEL    // tap: del   | long-tap: delete word forward
-
-// mask CTRL when holding left/right to avoid accidental jumps to beginning/end of document
-#define MASK_MODS(NAME, MODS, BINDING) \
+// Define macros for masking modifiers during hold actions
+#define MASK_MODS(NAME, MODS, TAP_BIND, HOLD_BIND) \
     ZMK_MOD_MORPH(NAME, \
-        bindings = <BINDING>, <BINDING>; \
+        bindings = <TAP_BIND>, <HOLD_BIND>; \
         mods = <MODS>; \
     )
-MASK_MODS(masked_home, (MOD_LGUI), &kp HOME)
-MASK_MODS(masked_end,  (MOD_LGUI), &kp END)
 
+// Mask ⌘ when holding left/right to avoid accidental jumps to beginning/end of the document
+MASK_MODS(masked_home, (MOD_LGUI), &kp LEFT, &kp HOME)
+MASK_MODS(masked_end,  (MOD_LGUI), &kp RIGHT, &kp END)
+
+// Define hold-tap behaviors for navigation
+ZMK_HOLD_TAP(mt_home, bindings = <&masked_home>, <&kp LEFT>; MT_CORE)
+ZMK_HOLD_TAP(mt_end, bindings = <&masked_end>, <&kp RIGHT>; MT_CORE)
+
+// Define navigation keys
+#define NAV_LEFT  &mt_home 0 LEFT    // tap: left  | long-tap: beginning of line
+#define NAV_RIGHT &mt_end 0 RIGHT    // tap: right | long-tap: end of line
+#define NAV_UP    &mt LC(HOME) UP    // tap: up    | long-tap: beginning of document
+#define NAV_DOWN  &mt LC(END)  DOWN  // tap: down  | long-tap: end of document
+#define NAV_BSPC  &mt LC(BSPC) BSPC  // tap: bspc  | long-tap: delete word backward
+#define NAV_DEL   &mt LC(DEL)  DEL   // tap: del   | long-tap: delete word forward
 /* Caps-word, num-word and smart-mouse */
 
 // tap: sticky-shift | shift + tap/ double-tap: caps-word | hold: shift
