@@ -88,8 +88,8 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS)  // right-hand HRMs
     hold-trigger-key-positions = <0>;
 
 &mt { MT_CORE };
-ZMK_HOLD_TAP(mt_home, bindings = <&masked_home>, <&kp LEFT>; MT_CORE)
-ZMK_HOLD_TAP(mt_end,  bindings = <&masked_end>, <&kp RIGHT>; MT_CORE)
+ZMK_HOLD_TAP(mt_home, bindings = <&masked_home>, <&kp>; MT_CORE)
+ZMK_HOLD_TAP(mt_end, bindings = <&masked_end>, <&kp>; MT_CORE)
 
 #define NAV_LEFT  &mt LGUI(LEFT)  LEFT   // tap: left  | long-tap: beginning of line
 #define NAV_RIGHT &mt LGUI(RIGHT) RIGHT  // tap: right | long-tap: end       of line
@@ -105,8 +105,8 @@ ZMK_HOLD_TAP(mt_end,  bindings = <&masked_end>, <&kp RIGHT>; MT_CORE)
         mods = <MODS>; \
     )
 // Mask ⌘ when holding left/right to avoid accidental jumps to the beginning/end of the document
-MASK_MODS(masked_home, (MOD_LGUI), &kp LEFT)  // Map Home to Command + Left
-MASK_MODS(masked_end,  (MOD_LGUI), &kp RIGHT) // Map End to Command + Right
+MASK_MODS(masked_home, (MOD_LGUI), &kp LEFT)
+MASK_MODS(masked_end,  (MOD_LGUI), &kp RIGHT)
 
 /* Caps-word, num-word and smart-mouse */
 
