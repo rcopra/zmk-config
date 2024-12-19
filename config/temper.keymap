@@ -1,7 +1,7 @@
 /* source key position labels */
 #include "zmk-helpers/key-labels/36.h"
 
-/* map Zen's extra keys */
+/* map Temper's extra keys */
 #define X_LH  &kp LGUI      // thumb row, left
 #define X_RH  &smart_mouse  // thumb row, right
 
@@ -11,5 +11,5 @@
 /* source the main keymap */
 #include "base.keymap"
 
-// /* use 5-column layout for Zen */
-// / { chosen { zmk,matrix_transform = &five_column_transform; }; };
+// /* use 5-column layout for Temper */
+/ { chosen { zmk,matrix_transform = &five_column_transform; }; };
