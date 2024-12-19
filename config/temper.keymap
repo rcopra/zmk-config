@@ -10,6 +10,3 @@
 
 /* source the main keymap */
 #include "base.keymap"
-
-// /* use 5-column layout for Temper */
-/ { chosen { zmk,matrix_transform = &five_column_transform; }; };
