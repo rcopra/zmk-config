@@ -160,6 +160,18 @@ ZMK_TRI_STATE(swapper,
     ignored-key-positions = <LT2>;
 )
 
+// Ctrl + Tab Swapper (Next Tab)
+ZMK_TRI_STATE(tab_swapper,
+    bindings = <&kt LCTRL>, <&kp TAB>, <&kt LCTRL>;
+    ignored-key-positions = <LT2>;
+)
+
+// Ctrl + Shift + Tab Swapper (Previous Tab)
+ZMK_TRI_STATE(reverse_tab_swapper,
+    bindings = <&kt LCTRL>, <&kt LSHIFT>, <&kp TAB>, <&kt LSHIFT>, <&kt LCTRL>;
+    ignored-key-positions = <LT2>;
+)
+
 // reuse basic mod-morph scheme
 #define SIMPLE_MORPH(NAME, MOD, BINDING1, BINDING2) \
     ZMK_MOD_MORPH(NAME, \
