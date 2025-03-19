@@ -14,12 +14,10 @@
         }; \
     };
 
-/* Swedish characters */
-ZMK_LEADER_SEQUENCE(sv_ae,      &sv_ae,         A E)  // ä
-ZMK_LEADER_SEQUENCE(sv_ao,      &sv_ao,         A O)  // å
-ZMK_LEADER_SEQUENCE(sv_oe,      &sv_oe,         O)    // ö
-
-/* German characters */
+/* German umlauts */
+ZMK_LEADER_SEQUENCE(de_ae,      &de_ae,         A)  // ä
+ZMK_LEADER_SEQUENCE(de_oe,      &de_oe,         O)  // ö
+ZMK_LEADER_SEQUENCE(de_ue,      &de_ue,         U)  // ü
 ZMK_LEADER_SEQUENCE(de_eszett,  &de_eszett,     S)  // ß
 
 /* Greek letters */
@@ -55,4 +53,3 @@ ZMK_LEADER_SEQUENCE(ble,        &out OUT_BLE,   B L E)
 #endif // CONFIG_WIRELESS
 ZMK_LEADER_SEQUENCE(reset,      &sys_reset,     R E S E T)
 ZMK_LEADER_SEQUENCE(boot,       &bootloader,    B O O T)
-
