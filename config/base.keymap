@@ -3,7 +3,7 @@
 #include <dt-bindings/zmk/keys.h>
 #ifdef CONFIG_WIRELESS
   #include <dt-bindings/zmk/bt.h>
-  #include <dt-bindings/zmk/outputs.h> p
+  #include <dt-bindings/zmk/outputs.h>
   #define _BT_SEL_KEYS_                                                        \
       &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_CLR
 #else
@@ -219,7 +219,7 @@ ZMK_BASE_LAYER(Base,
 //╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
     &kp Q         &kp W         &kp F         &kp P         &kp B       ,   &kp J         &kp L         &kp U         &kp Y         &kp SQT     ,
 //├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-    &hml LCTRL A   &hml LALT R   &hml LGUI S  &hml LSHFT T  &kp G        ,   &kp M         &hmr RSHFT N  &hmr LGUI E  &hmr LALT I   &hmr LCTRL O
+    &hml LCTRL A   &hml LALT R   &hml LGUI S  &hml LSHFT T  &kp G        ,   &kp M         &hmr RSHFT N  &hmr LGUI E  &hmr LALT I   &hmr LCTRL O,
 //├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
     &kp Z         &kp X         &kp C         &kp D         &kp V       ,   &kp K         &kp H         &comma_morph  &dot_morph    &qexcl      ,
 //╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯
