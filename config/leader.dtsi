@@ -53,4 +53,3 @@ ZMK_LEADER_SEQUENCE(ble,        &out OUT_BLE,   B L E)
 #endif // CONFIG_WIRELESS
 ZMK_LEADER_SEQUENCE(reset,      &sys_reset,     R E S E T)
 ZMK_LEADER_SEQUENCE(boot,       &bootloader,    B O O T)
-
