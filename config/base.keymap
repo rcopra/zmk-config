@@ -108,8 +108,8 @@ ZMK_HOLD_TAP(mt_end, bindings = <&masked_end>, <&kp>; MT_CORE)
 #define MAC_NAV_RIGHT &mt LG(RIGHT) RIGHT   // tap: right | hold: ⌘+→ (end of line)
 #define MAC_NAV_UP    &mt LG(UP) UP         // tap: up    | hold: ⌘+↑ (start of doc)
 #define MAC_NAV_DOWN  &mt LG(DOWN) DOWN     // tap: down  | hold: ⌘+↓ (end of doc)
-#define MAC_NAV_BSPC  &mt LC(BSPC) BSPC // tap: delete | hold: ⌃+delete (delete word bwd)
-#define MAC_NAV_DEL   &mt LC(DEL)  DEL  // tap: del    | hold: ⌃+del    (delete word fwd)
+#define MAC_NAV_BSPC  &mt LALT(BSPC) BSPC // tap: delete | hold: ⌃+delete (delete word bwd)
+#define MAC_NAV_DEL   &mt LALT(DEL)  DEL  // tap: del    | hold: ⌃+del    (delete word fwd)
 
 // Mask CTRL on left/right hold to avoid accidental jumps to start/end of doc.
 #define MASK_MODS(NAME, MODS, BINDING)                                         \
