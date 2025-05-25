@@ -22,6 +22,10 @@
 #define NUM 3
 #define SYS 4
 #define MOUSE 5
+#define WIN_BASE 6
+#define WIN_NAV 7
+#define WIN_FN 8
+#define WIN_NUM 9
 
 #define XXX &none
 #define ___ &trans
@@ -90,12 +94,21 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS) // Right-hand HRMs.
 ZMK_HOLD_TAP(mt_home, bindings = <&masked_home>, <&kp>; MT_CORE)
 ZMK_HOLD_TAP(mt_end, bindings = <&masked_end>, <&kp>; MT_CORE)
 
-#define NAV_LEFT  &mt LG(LEFT) LEFT     // tap: left  | hold: ⌘+← (start of line)
-#define NAV_RIGHT &mt LG(RIGHT) RIGHT   // tap: right | hold: ⌘+→ (end of line)
-#define NAV_UP    &mt LG(UP) UP         // tap: up    | hold: ⌘+↑ (start of doc)
-#define NAV_DOWN  &mt LG(DOWN) DOWN     // tap: down  | hold: ⌘+↓ (end of doc)
-#define NAV_BSPC  &mt LC(BSPC) BSPC     // tap: delete | hold: ⌃+delete (delete word bwd)
-#define NAV_DEL   &mt LC(DEL) DEL       // tap: del    | hold: ⌃+del    (delete word fwd)
+// Windows Nav Layers
+#define WIN_NAV_LEFT  &mt_home 0   LEFT  // Tap: left  | Long-tap: start of line.
+#define WIN_NAV_RIGHT &mt_end 0    RIGHT // Tap: right | Long-tap: end   of line.
+#define WIN_NAV_UP    &mt LC(HOME) UP    // Tap: up    | Long-tap: start of doc.
+#define WIN_NAV_DOWN  &mt LC(END)  DOWN  // Tap: down  | Long-tap: end   of doc.
+#define WIN_NAV_BSPC  &mt LC(BSPC) BSPC     // tap: delete | hold: ⌃+delete (delete word bwd)
+#define WIN_NAV_DEL   &mt LC(DEL) DEL       // tap: del    | hold: ⌃+del    (delete word fwd)
+
+// Mac Nav Layers
+#define MAC_NAV_LEFT  &mt LG(LEFT) LEFT     // tap: left  | hold: ⌘+← (start of line)
+#define MAC_NAV_RIGHT &mt LG(RIGHT) RIGHT   // tap: right | hold: ⌘+→ (end of line)
+#define MAC_NAV_UP    &mt LG(UP) UP         // tap: up    | hold: ⌘+↑ (start of doc)
+#define MAC_NAV_DOWN  &mt LG(DOWN) DOWN     // tap: down  | hold: ⌘+↓ (end of doc)
+#define MAC_NAV_BSPC  &mt LG(BSPC) BSPC     // tap: delete | hold: ⌃+delete (delete word bwd)
+#define MAC_NAV_DEL   &mt LG(DEL) DEL       // tap: del    | hold: ⌃+del    (delete word fwd)
 
 // Mask CTRL on left/right hold to avoid accidental jumps to start/end of doc.
 #define MASK_MODS(NAME, MODS, BINDING)                                         \
@@ -138,6 +151,14 @@ ZMK_HOLD_TAP(smart_num, bindings = <&mo>, <&num_dance>; flavor = "balanced";
 ZMK_TAP_DANCE(num_dance, bindings = <&num_word NUM>, <&sl NUM>;
               tapping-term-ms = <200>;)
 
+// Tap: WINDOWS num-word | double-tap: sticky num-layer | Hold: num-layer.
+#define SMART_NUM_WIN &smart_num_win WIN_NUM 0
+ZMK_HOLD_TAP(smart_num_win, bindings = <&mo>, <&num_dance_win>; flavor = "balanced";
+             tapping-term-ms = <200>; quick-tap-ms = <QUICK_TAP_MS>;)
+ZMK_TAP_DANCE(num_dance_win, bindings = <&num_word WIN_NUM>, <&sl WIN_NUM>;
+              tapping-term-ms = <200>;)
+
+
 // Smart-mouse, requires tri-state module.
 ZMK_TRI_STATE(
     smart_mouse, bindings = <&tog MOUSE>, <&none>, <&tog MOUSE>;
@@ -147,8 +168,12 @@ ZMK_TRI_STATE(
 
 /* Custom behaviors */
 
+// Alt+Tab swapper, requires tri-state module.
+ZMK_TRI_STATE(swapper, bindings = <&kt LALT>, <&kp TAB>, <&kt LALT>;
+              ignored-key-positions = <LT2 RT2 RM1 RM2 RM3>;)
+
 // Cmd+Tab swapper for macOS
-ZMK_TRI_STATE(swapper,
+ZMK_TRI_STATE(mac_swapper,
     bindings = <&kt LGUI>, <&kp TAB>, <&kt LGUI>;
     ignored-key-positions = <LT2>;
 )
@@ -234,9 +259,9 @@ ZMK_BASE_LAYER(Base,
 
 ZMK_BASE_LAYER(Nav,
 //╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
-    &kp LA(F4)    ___           &kp LS(TAB)   &swapper      ___         ,   &kp PG_UP     NAV_BSPC      NAV_UP        NAV_DEL       ___         ,
+    &kp LA(F4)    ___           &kp LS(TAB)   &mac_swapper      ___     ,  &kp PG_UP     MAC_NAV_BSPC      MAC_NAV_UP     MAC_NAV_DEL         ___       ,
 //├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-    &sk LCTRL      &sk LALT      &sk LGUI     &sk LSHFT     ___         ,    &kp PG_DN     NAV_LEFT      NAV_DOWN      NAV_RIGHT     &kp RET     ,
+    &sk LCTRL      &sk LALT      &sk LGUI     &sk LSHFT     ___         , &kp PG_DN     MAC_NAV_LEFT  MAC_NAV_DOWN   MAC_NAV_RIGHT   &kp RET    ,
 //├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
     ___          ___   &reverse_tab_swapper  &tab_swapper   ___         ,   &kp INS       &kp TAB       ___           ___           ___         ,
 //╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯
@@ -272,7 +297,7 @@ ZMK_BASE_LAYER(Sys,
 //╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
                                _BT_SEL_KEYS_                            ,   ___           ___           ___           ___           ___         ,
 //├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-    ___           ___           ___           ___           &bootloader ,   &bootloader   ___           ___           ___           ___         ,
+    &to DEF      &to WIN_BASE   ___           ___           &bootloader ,   &bootloader   ___           ___           ___           ___         ,
 //├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
     ___           ___           ___           ___           &sys_reset  ,   &sys_reset    ___           ___           ___           ___         ,
 //╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯
@@ -289,6 +314,54 @@ ZMK_BASE_LAYER(Mouse,
     ___           ___           ___           ___           ___         ,   ___           &mkp LCLK     &mkp MCLK      &mkp RCLK    ___         ,
 //╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯
                                               ___           ___         ,   U_WH_U        U_WH_D
+//                                          ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯
+)
+
+ZMK_BASE_LAYER(WinBase,
+//╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+    &kp Q         &kp W         &kp F         &kp P         &kp B       ,   &kp J         &kp L         &kp U         &kp Y         &kp SQT     ,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    &hml LGUI A   &hml LALT R   &hml LCTRL S  &hml LSHFT T  &kp G        ,   &kp M         &hmr RSHFT N  &hmr LCTRL E  &hmr LALT I   &hmr LGUI O,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    &kp Z         &kp X         &kp C         &kp D         &kp V       ,   &kp K         &kp H         &comma_morph  &dot_morph    &qexcl      ,
+//╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯
+                                              &lt_spc WIN_NAV 0 &lt WIN_FN RET  ,   SMART_NUM_WIN     MAGIC_SHIFT
+//                                          ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯
+)
+
+ZMK_BASE_LAYER(WinNav,
+//╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+    &kp LA(F4)    ___           &kp LS(TAB)   &swapper      ___         ,  &kp PG_UP     WIN_NAV_BSPC      WIN_NAV_UP     WIN_NAV_DEL    ___    ,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    &sk LGUI      &sk LALT      &sk LCTRL     &sk LSHFT     ___         , &kp PG_DN     WIN_NAV_LEFT  WIN_NAV_DOWN   WIN_NAV_RIGHT   &kp RET    ,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    ___          ___   &reverse_tab_swapper  &tab_swapper   ___         ,   &kp INS       &kp TAB       ___           ___           ___         ,
+//╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯
+                                              ___           ___         ,   ___           CANCEL
+//                                          ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯
+)
+
+ZMK_BASE_LAYER(WinFn,
+//╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+    &kp F12       &kp F7        &kp F8        &kp F9        ___         ,   ___           &kp C_PREV    &kp C_VOL_UP  &kp C_NEXT    ___         ,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    &hml LGUI F11 &hml LALT F4  &hml LCTRL F5 &hml LSHFT F6 ___         ,   ___           DSK_PREV      VOL_DOWN      DSK_NEXT      ___         ,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    &kp F10       &kp F1        &kp F2        &kp F3        ___         ,   PIN_APP       PIN_WIN       DSK_MGR       ___           ___         ,
+//╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯
+                                              ___           ___         ,   &kp C_MUTE    &kp C_PP
+//                                          ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯
+)
+
+ZMK_BASE_LAYER(WinNum,
+//╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+    ___           &kp N7        &kp N8        &kp N9        ___         ,   ___           ___           ___           ___           ___         ,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    &hml LGUI N0  &hml LALT N4  &hml LCTRL N5 &hml LSHFT N6 ___          ,   ___           &kp RSHFT      &kp LCTRL      &kp LALT     &kp LGUI  ,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    ___           &kp N1        &kp N2        &kp N3        ___         ,   ___           ___           ___           ___           ___         ,
+//╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯
+                                              ___           ___         ,   ___           ___
 //                                          ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯
 )
 
