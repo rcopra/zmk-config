@@ -209,3 +209,222 @@ ZMK_LAYER(nav_layer,
     ...
 )
 ```
+
+## Temper Keyboard Behavior Summary
+
+The Temper is a 36-key wireless split keyboard with extensive custom functionality. This section documents its behavior for quick reference.
+
+### Physical Layout
+
+**36-key split layout:**
+```
+╭─────────────────────╮ ╭─────────────────────╮
+│  Q   W   F   P   B  │ │  J   L   U   Y   '  │  Top row (LT/RT)
+│  A   R   S   T   G  │ │  M   N   E   I   O  │  Middle/home row (LM/RM)
+│  Z   X   C   D   V  │ │  K   H   ,   .   ?  │  Bottom row (LB/RB)
+╰───────╮ Cmd Spc Ret │ │ Num Sft Mse ╭───────╯  Thumb keys (LH/RH)
+        ╰─────────────╯ ╰─────────────╯
+```
+
+**Hardware features:**
+- nice!view displays
+- 30-minute sleep timeout
+- Enhanced Bluetooth with experimental connections
+- Mouse emulation with smooth scrolling
+- Optimized for 3840x2160 displays
+
+### Base Layer (Colemak-DH)
+
+**Alpha keys:** Q W F P B / J L U Y '  (top row)
+- Uses Colemak-DH layout optimized for typing comfort
+
+**Timeless homerow mods:**
+- Left hand: Ctrl(A), Alt(R), Cmd(S), Shift(T)
+- Right hand: Shift(N), Cmd(E), Alt(I), Ctrl(O)
+- 280ms tapping-term with 150ms require-prior-idle-ms
+- Positional hold-tap prevents accidental same-side activation
+
+**Punctuation (right bottom):**
+- H key position: H
+- Comma key: `,` (tap) / `;` (shift) / `<` (ctrl+shift)
+- Dot key: `.` (tap) / `:` (shift) / `>` (ctrl+shift)
+- Right pinky: `?` (tap) / `!` (shift)
+
+### Thumb Keys (Left to Right)
+
+**Left side:**
+1. **Cmd/Super** - Left-most thumb (36-key addition)
+2. **Space / NAV layer** - Hold for NAV layer; Shift+tap = `. ` + sticky shift
+3. **Return / FN layer** - Tap for Enter, hold for FN layer
+
+**Right side:**
+1. **NUM layer** - Tap for numword, double-tap for sticky NUM, hold for NUM layer
+2. **Magic Shift** - Tap for one-shot shift, double-tap for caps-word, hold for shift
+3. **Smart-mouse** - Right-most thumb (36-key addition), auto-deactivates when not in use
+
+### Layers
+
+**NAV (Navigation):**
+- Arrow cluster (HJKL-style on right hand) with cmd+arrow on hold
+- Page Up/Down, Home/End
+- Tab navigation (Tab, Shift+Tab)
+- Cmd+Tab swapper for window switching
+- Ctrl+Tab / Ctrl+Shift+Tab for browser tab switching
+- Sticky mods on left hand (Ctrl, Alt, Cmd, Shift)
+- Backspace/Delete with word-deletion on hold (Ctrl+Del)
+
+**FN (Function keys):**
+- F1-F12 arranged by columns (F12/F11/F10 top, F7/F4/F1 middle, F8/F5/F2 right middle, F9/F6/F3 far right middle)
+- Media controls (prev/next track, vol up/down, play/pause, mute)
+- Desktop management (prev/next desktop, pin window/app, desktop manager)
+- Function key homerow mods on left hand
+
+**NUM (Numbers):**
+- Number pad layout: 7 8 9 (top), 0 4 5 6 (home), 1 2 3 (bottom)
+- Number homerow mods on left hand (0 has Ctrl, 4 has Alt, 5 has Cmd, 6 has Shift)
+- Auto-layer (numword) keeps layer active while typing numbers
+
+**SYS (System - accessed via FN+NUM):**
+- Bluetooth profiles 0-4 on top row, BT clear
+- Bootloader and reset buttons
+
+**MOUSE (Mouse emulation):**
+- Mouse movement (HJKL-style: up/down/left/right)
+- Mouse buttons (left/middle/right click)
+- Scroll wheel (up/down/left/right)
+- Page Up/Down on top row
+- Speed adjustments: 3x speed on NAV layer, 0.5x precision on FN layer
+
+### Combo System
+
+The Temper uses combos instead of a dedicated symbol layer. All combos work on DEF, NAV, and NUM layers.
+
+**Horizontal combos - Left hand:**
+- W+F: Esc
+- F+P: Smart-mouse toggle
+- A+R: Tab (or Shift+Alt+Tab when shifted)
+- R+S: Leader key
+- A+R+S: Leader key + shift
+- X+C: Cut (Cmd+X)
+- X+Z: Copy (Cmd+C)
+- C+Z: Paste (Cmd+V)
+
+**Horizontal combos - Right hand:**
+- L+U: Backspace
+- U+Y: Delete
+- N+E: `(` or `<` with shift (DEF/NUM only)
+- E+I: `)` or `>` with shift (DEF/NUM only)
+- N+E: `<` (NAV layer only)
+- E+I: `>` (NAV layer only)
+- H+,: `[` (DEF/NUM) or `{` (NAV)
+- ,+.: `]` (DEF/NUM) or `}` (NAV)
+
+**Vertical combos - Left hand (symbols):**
+- W+R: `@`
+- F+S: `#`
+- P+T: `$`
+- B+G: `%`
+- R+X: `` ` `` (backtick)
+- S+C: `\`
+- T+D: `=`
+- G+V: `~`
+
+**Vertical combos - Right hand (symbols):**
+- J+M: `^`
+- L+N: `+`
+- U+E: `*`
+- Y+I: `&`
+- M+K: `_`
+- N+H: `-`
+- E+,: `/`
+- I+.: `|`
+
+### Leader Key Sequences
+
+Activate leader by combo (R+S), then type sequence:
+
+**German umlauts:**
+- A: ä
+- O: ö
+- U: ü
+- S: ß
+
+**Greek letters** (E + letter):
+- E A: α (alpha)
+- E B: β (beta)
+- E G: γ (gamma)
+- E D: δ (delta)
+- E E: ε (epsilon)
+- E Z: ζ (zeta)
+- E H: η (eta)
+- E V: θ (theta)
+- E I: ι (iota)
+- E K: κ (kappa)
+- E L: λ (lambda)
+- E M: μ (mu)
+- E N: ν (nu)
+- E X: ξ (xi)
+- E O: ο (omicron)
+- E P: π (pi)
+- E R: ρ (rho)
+- E S: σ (sigma)
+- E T: τ (tau)
+- E U: υ (upsilon)
+- E F: ϕ (phi)
+- E C: χ (chi)
+- E Y: ψ (psi)
+- E W: ω (omega)
+
+**System commands:**
+- U S B: Switch to USB output
+- B L E: Switch to BLE output
+- R E S E T: System reset
+- B O O T: Enter bootloader
+
+### Custom Behaviors
+
+**Window/Tab Swapper (Tri-state):**
+- Tap W on NAV layer to activate Cmd+Tab (hold Cmd, tap Tab repeatedly with W, release elsewhere)
+- Tap X on NAV layer for Ctrl+Tab (next browser tab)
+- Tap C on NAV layer for Ctrl+Shift+Tab (previous browser tab)
+
+**Smart-mouse:**
+- Auto-activates mouse layer when toggled via combo or thumb key
+- Auto-deactivates when typing outside mouse/nav areas
+- Ignores specific keys to keep mouse active while using them
+
+**Magic Shift (right outer thumb):**
+- Tap: One-shot shift (sticky shift for next key)
+- Double-tap or Shift+tap: Caps-word
+- Hold: Regular shift
+
+**Numword:**
+- Keeps NUM layer active while typing numbers
+- Auto-deactivates when typing non-number keys
+
+**Navigation cluster with cmd shortcuts:**
+- Arrow keys (tap) become cmd+arrow (hold) for document navigation
+- Left/Right: Start/end of line (Cmd+arrow)
+- Up/Down: Start/end of document (Cmd+arrow)
+- Backspace/Delete: Word deletion (Ctrl+Bspc/Del)
+
+### Configuration Notes
+
+**Combo settings:**
+- Maximum 6 combos per key
+- Maximum 3 keys per combo
+- Fast combos: 18ms term, 150ms idle (typing combos)
+- Slow combos: 30ms term, 50ms idle (vertical symbol combos)
+
+**Timing parameters:**
+- Homerow mods: 280ms tapping-term, 150ms require-prior-idle
+- Layer taps: 200ms tapping-term
+- Quick-tap: 175ms global default
+- Sticky keys: 900ms release timeout
+
+**Display configuration:**
+- nice!view displays enabled
+- Battery status shown
+- Layer status display disabled (commented out)
+
+This configuration emphasizes minimal finger travel, heavy use of combos for symbols, and context-aware behaviors that adapt based on typing patterns.
