@@ -97,13 +97,19 @@ ZMK_HOLD_TAP(mt_end, bindings = <&masked_end>, <&kp>; MT_CORE)
 // #define NAV_UP    &mt LG(UP) UP         // tap: up    | hold: ⌘+↑ (start of doc)
 // #define NAV_DOWN  &mt LG(DOWN) DOWN     // tap: down  | hold: ⌘+↓ (end of doc)
 
+// Vim macros for document navigation
+ZMK_MACRO(vim_gg, bindings = <&kp G &kp G>; wait-ms = <0>; tap-ms = <5>;)
+
 // Vim motion navigation (hold sends Vim motion keys for use in normal mode)
+ZMK_HOLD_TAP(mt_vim_gg, bindings = <&vim_gg>, <&kp>; MT_CORE)
+ZMK_HOLD_TAP(mt_vim_G, bindings = <&kp LS(G)>, <&kp>; MT_CORE)
+
 #define NAV_LEFT  &mt N0 LEFT           // tap: left  | hold: 0 (vim: start of line)
 #define NAV_RIGHT &mt DLLR RIGHT        // tap: right | hold: $ (vim: end of line)
-#define NAV_UP    &mt LBRC UP           // tap: up    | hold: { (vim: paragraph up)
-#define NAV_DOWN  &mt RBRC DOWN         // tap: down  | hold: } (vim: paragraph down)
-#define NAV_BSPC  &mt LC(BSPC) BSPC     // tap: delete | hold: ⌃+delete (delete word bwd)
-#define NAV_DEL   &mt LC(DEL) DEL       // tap: del    | hold: ⌃+del    (delete word fwd)
+#define NAV_UP    &mt_vim_gg UP 0       // tap: up    | hold: gg (vim: top of document)
+#define NAV_DOWN  &mt_vim_G DOWN 0      // tap: down  | hold: G (vim: bottom of document)
+#define NAV_BSPC  &mt LALT(BSPC) BSPC   // tap: bspc | hold: ⌥+bspc (delete word backward - macOS)
+#define NAV_DEL   &mt LALT(DEL) DEL     // tap: del  | hold: ⌥+del (delete word forward - macOS)
 
 // Mask CTRL on left/right hold to avoid accidental jumps to start/end of doc.
 #define MASK_MODS(NAME, MODS, BINDING)                                         \
