@@ -1,5 +1,7 @@
 #include <behaviors.dtsi>
-#include <behaviors/num_word.dtsi> // Requires auto-layer module.
+#include <behaviors/num_word.dtsi> // Requires zmk-auto-layer module.
+#include <behaviors/unicode.dtsi> // Requires zmk-unicode module.
+#include <zmk-helpers/helper.h> // Requires zmk-helpers module.
 #include <dt-bindings/zmk/keys.h>
 #ifdef CONFIG_WIRELESS
   #include <dt-bindings/zmk/bt.h>
@@ -9,12 +11,6 @@
 #else
   #define _BT_SEL_KEYS_ &trans &trans &trans &trans &trans
 #endif
-
-#define HOST_OS 2
-#include "zmk-helpers/helper.h"
-#include "zmk-helpers/unicode-chars/greek.dtsi"
-#include "zmk-helpers/unicode-chars/german.dtsi"
-#include "zmk-helpers/unicode-chars/swedish.dtsi"
 
 #define DEF 0
 #define NAV 1
@@ -37,6 +33,10 @@
 
 &sl { // Allow sticky mods to chord across sticky layers.
   ignore-modifiers;
+};
+
+&uc { // Unicode input mode for macOS.
+  default-mode = <UC_MODE_MACOS>;
 };
 
 &lt {  // layer-tap config
