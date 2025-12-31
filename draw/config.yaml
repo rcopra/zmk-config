@@ -9,6 +9,8 @@ parse_config:
   raw_binding_map:
     "&sys_reset": Reset
     "&bootloader": Boot
+    "&uc UC_SET_MACOS": macOS
+    "&uc UC_SET_LINUX": Linux
     "&caps_word": Caps Word
 
     "&bt BT_SEL 0": BT 1
@@ -16,9 +18,9 @@ parse_config:
     "&bt BT_SEL 2": BT 3
     "&bt BT_SEL 3": BT 4
 
-    "&kp LC(INS)": Copy
-    "&kp LC(X)": Cut
-    "&kp LS(INS)": Paste
+    "&kp LG(C)": Copy
+    "&kp LG(X)": Cut
+    "&kp LG(V)": Paste
 
     "&kp LG(LC(LEFT))": Prev Desk
     "&kp LG(LC(RIGHT))": Next Desk
@@ -27,6 +29,8 @@ parse_config:
 
     "&swapper": Next Win
     "&kp LS(TAB)": Prev Win
+    "&tab_swapper": Next Tab
+    "&reverse_tab_swapper": Prev Tab
     "&dot_spc": Sentence
     "&num_dance": { "t": "Numword", "s": "Sticky Num" }
     "&magic_shift": { "t": Magic, "h": "Shift" }
@@ -172,4 +176,4 @@ parse_config:
 draw_config:
   append_colon_to_layer_header: false
   dark_mode: auto
-  footer_text: "urob/zmk-config"
+  footer_text: ""
