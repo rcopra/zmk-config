@@ -1,7 +1,8 @@
 #include <behaviors.dtsi>
 #include <behaviors/num_word.dtsi> // Requires zmk-auto-layer module.
-#include <behaviors/unicode.dtsi> // Requires zmk-unicode module.
+#define HOST_OS 2  // macOS unicode input (hold Option + hex digits)
 #include <zmk-helpers/helper.h> // Requires zmk-helpers module.
+#include <zmk-helpers/unicode-chars/german.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #ifdef CONFIG_WIRELESS
   #include <dt-bindings/zmk/bt.h>
@@ -35,9 +36,6 @@
   ignore-modifiers;
 };
 
-&uc { // Unicode input mode for macOS.
-  default-mode = <UC_MODE_MACOS>;
-};
 
 &lt {  // layer-tap config
   flavor = "balanced";
@@ -269,7 +267,7 @@ ZMK_BASE_LAYER(Sys,
 //╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
                                _BT_SEL_KEYS_                            ,   ___           ___           ___           ___           ___         ,
 //├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-  &uc UC_SET_MACOS &uc UC_SET_LINUX ___       ___           &bootloader ,   &bootloader   &uc UC_DE_UE  ___           ___           ___         ,
+    ___           ___           ___           ___           &bootloader ,   &bootloader   ___           ___           ___           ___         ,
 //├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
     ___           ___           ___           ___           &sys_reset  ,   &sys_reset    ___           ___           ___           ___         ,
 //╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯

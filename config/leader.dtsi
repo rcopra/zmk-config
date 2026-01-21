@@ -14,11 +14,11 @@
         }; \
     };
 
-/* German umlauts */
-ZMK_LEADER_SEQUENCE(de_ae,      &uc UC_DE_AE,         A)  // ä
-ZMK_LEADER_SEQUENCE(de_oe,      &uc UC_DE_OE,         O)  // ö
-ZMK_LEADER_SEQUENCE(de_ue,      &uc UC_DE_UE,         U)  // ü
-ZMK_LEADER_SEQUENCE(de_eszett,  &uc UC_DE_SS,         S)  // ß
+/* German umlauts (using old macro-based unicode helpers) */
+ZMK_LEADER_SEQUENCE(uml_ae,      &de_ae,         A)  // ä
+ZMK_LEADER_SEQUENCE(uml_oe,      &de_oe,         O)  // ö
+ZMK_LEADER_SEQUENCE(uml_ue,      &de_ue,         U)  // ü
+ZMK_LEADER_SEQUENCE(uml_eszett,  &de_eszett,     S)  // ß
 
 // BLE and USB
 #ifdef CONFIG_WIRELESS
