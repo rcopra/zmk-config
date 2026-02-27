@@ -12,7 +12,105 @@ This is a ZMK firmware configuration for the Temper split mechanical keyboard, b
 - Simplified Magic Shift (no repeat key functionality)
 - Removed unused features (Greek letters, Windows shortcuts)
 
-The configuration builds against ZMK v0.3 with custom modules.
+The configuration builds against ZMK v0.3 with custom modules. All build dependencies (ZMK, Zephyr, and ZMK modules) are pinned via the west manifest in `config/west.yml` and reproducible via `flake.lock`.
+
+## ZMK Modules
+
+Six upstream modules (all from urob, pinned to `v0.3`) extend base ZMK:
+
+| Module | Purpose |
+|--------|---------|
+| `zmk-helpers` | Convenience macros for behaviors, combos, layers, morphs; key-position labels |
+| `zmk-auto-layer` | Powers smart-num (numword) — auto-exits NUM layer on non-number keypresses |
+| `zmk-tri-state` | Swapper behavior for app/window switching (used in NAV layer) |
+| `zmk-leader-key` | Leader key sequences via `ZMK_LEADER_SEQUENCE()` |
+| `zmk-unicode` | Unicode input helpers (`&uc`) for umlauts and special chars |
+| `zmk-adaptive-key` | Adaptive/context-sensitive key behaviors |
+
+## ZMK Helpers — Macro Reference
+
+**This codebase is almost entirely written with `zmk-helpers` macros. Never write raw Devicetree nodes for behaviors, combos, or layers — always use the corresponding macro.** Mixing raw DTS with helpers causes subtle, hard-to-debug issues.
+
+`helper.h` must be included **after** `behaviors.dtsi` (already correct in `base.keymap`).
+
+### Behavior macros (replace raw `/ { behaviors { ... }; };` nodes)
+
+| Macro | Replaces |
+|-------|---------|
+| `ZMK_HOLD_TAP(name, ...)` | `hold-tap` behavior node |
+| `ZMK_MOD_MORPH(name, ...)` | `mod-morph` behavior node |
+| `ZMK_MACRO(name, ...)` | `macro` behavior node |
+| `ZMK_MACRO_ONE_PARAM(name, ...)` | parameterized macro (1 arg) |
+| `ZMK_MACRO_TWO_PARAM(name, ...)` | parameterized macro (2 args) |
+| `ZMK_TAP_DANCE(name, ...)` | `tap-dance` behavior node |
+| `ZMK_STICKY_KEY(name, ...)` | `sticky-key` behavior node |
+| `ZMK_CAPS_WORD(name, ...)` | `caps-word` behavior node |
+| `ZMK_TRI_STATE(name, ...)` | tri-state behavior (zmk-tri-state module) |
+| `ZMK_AUTO_LAYER(name, ...)` | auto-layer behavior (zmk-auto-layer module) |
+| `ZMK_ADAPTIVE_KEY(name, ...)` | adaptive-key behavior (zmk-adaptive-key module) |
+
+### Configuration macros
+
+| Macro | Purpose |
+|-------|---------|
+| `ZMK_COMBO(name, binding, positions, layers, term, idle)` | Define a combo; use key-position labels (e.g. `LM1 LM2`) |
+| `ZMK_COMBO(name, binding, positions, layers, term, idle, hold, trigger_pos)` | 8-arg variant for combos overlapping HRMs |
+| `ZMK_LAYER(name, keys, ...)` | Define a keymap layer |
+| `ZMK_CONDITIONAL_LAYER(if_layers, then_layer)` | Tri-layer (e.g. FN+NUM → SYS) |
+| `ZMK_LEADER_SEQUENCE(name, binding, keys...)` | Leader key sequence (zmk-leader-key module) |
+| `ZMK_UNICODE_SINGLE(name, ...)` | Single unicode character |
+| `ZMK_UNICODE_PAIR(name, ...)` | Unicode pair (shifted/unshifted) |
+
+### Key-position labels (from `zmk-helpers`)
+
+```
+LT4 LT3 LT2 LT1 LT0  |  RT0 RT1 RT2 RT3 RT4   (top row)
+LM4 LM3 LM2 LM1 LM0  |  RM0 RM1 RM2 RM3 RM4   (middle/home row)
+LB4 LB3 LB2 LB1 LB0  |  RB0 RB1 RB2 RB3 RB4   (bottom row)
+        LH2 LH1 LH0  |  RH0 RH1 RH2            (thumbs)
+```
+
+Use these labels everywhere instead of raw integer positions.
+
+### Docs
+
+When in doubt, check the upstream source: https://github.com/urob/zmk-helpers
+
+## Local Build Environment
+
+The workspace uses **Nix + direnv + just** for a fully isolated, reproducible build environment. Dependencies are pinned in `flake.lock`.
+
+### First-time setup
+
+1. Install Nix (with flakes):
+   ```bash
+   curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | \
+     sh -s -- install --no-confirm
+   ```
+
+2. Install direnv and nix-direnv:
+   ```bash
+   nix profile install nixpkgs#direnv nixpkgs#nix-direnv
+   ```
+
+3. Configure direnv (bash example — adjust for zsh/fish):
+   ```bash
+   echo 'eval "$(direnv hook bash)"' >> ~/.bashrc
+   mkdir -p ~/.config/direnv
+   echo 'source $HOME/.nix-profile/share/nix-direnv/direnvrc' >> ~/.config/direnv/direnvrc
+   ```
+
+4. Allow direnv in the workspace (loads the Nix environment automatically):
+   ```bash
+   direnv allow
+   ```
+
+5. Initialize the west workspace:
+   ```bash
+   just init   # equivalent to: west init -l config && west update && west zephyr-export
+   ```
+
+Once set up, the build environment activates automatically on `cd` into the directory.
 
 ## Essential Commands
 
@@ -128,10 +226,11 @@ Activate with R+S combo, then type:
 
 ## Editing Guidelines
 
-1. **Read files before editing** - Uses zmk-helpers macros extensively
-2. **Don't touch HRM timing** - Parameters are carefully tuned for "timeless" feel
-3. **Use zmk-helpers macros** - `ZMK_HOLD_TAP()`, `ZMK_COMBO()`, `ZMK_LAYER()`
-4. **Key positions use labels** - LT0-LT4 (left top), LM0-LM4 (left middle), etc.
+1. **Read files before editing** — the config uses zmk-helpers macros pervasively; understand what's there before changing anything
+2. **Never write raw Devicetree nodes** — always use the zmk-helpers macro equivalent (see ZMK Helpers — Macro Reference above); mixing the two breaks builds in non-obvious ways
+3. **Don't touch HRM timing** — parameters are carefully tuned for "timeless" feel
+4. **Key positions use labels** — always use `LT0`–`LT4`, `LM0`–`LM4`, `LB0`–`LB4`, `LH0`–`LH2` and right-hand equivalents; never hardcode integers
+5. **When in doubt, check the helpers docs** — https://github.com/urob/zmk-helpers before guessing macro signatures
 
 ## Common Patterns
 
