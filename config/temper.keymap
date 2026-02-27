@@ -6,7 +6,7 @@
              LT RT                                                             \
              LM RM                                                             \
              LB RB                                                             \
-        &kp TMUX_PRE LH RH &smart_mouse                                            \
+        TMUX_PRE LH RH &smart_mouse                                            \
     )
 
 #include "zmk-helpers/key-labels/36.h"
