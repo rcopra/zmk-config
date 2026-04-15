@@ -8,7 +8,34 @@ config ZMK_SPLIT_ROLE_CENTRAL
 
 endif
 
-if SHIELD_TEMPER_LEFT || SHIELD_TEMPER_RIGHT
+if SHIELD_TEMPER_DONGLE
+
+config ZMK_KEYBOARD_NAME
+    default "temper"
+
+config ZMK_SPLIT_ROLE_CENTRAL
+    default y
+
+config ZMK_USB
+    default y
+
+endif
+
+if SHIELD_TEMPER_LEFT_DONGLE
+
+config ZMK_KEYBOARD_NAME
+    default "temper_L"
+
+endif
+
+if SHIELD_TEMPER_RIGHT_DONGLE
+
+config ZMK_KEYBOARD_NAME
+    default "temper_R"
+
+endif
+
+if SHIELD_TEMPER_LEFT || SHIELD_TEMPER_RIGHT || SHIELD_TEMPER_DONGLE || SHIELD_TEMPER_LEFT_DONGLE || SHIELD_TEMPER_RIGHT_DONGLE
 
 config ZMK_SPLIT
     default y

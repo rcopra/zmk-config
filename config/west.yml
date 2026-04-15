@@ -26,6 +26,8 @@ manifest:
       url-base: https://github.com/urob
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
+    - name: janpfischer
+      url-base: https://github.com/janpfischer
 
   projects:
     - name: zmk
@@ -45,6 +47,11 @@ manifest:
       path: modules/zmk/tri-state
     - name: zmk-unicode
       path: modules/zmk/unicode
+
+    - name: zmk-dongle-screen
+      remote: janpfischer
+      revision: main
+      path: modules/zmk/dongle-screen
 
     # Only source necessary Zephyr modules. Remove this entire section to restore
     # the default (needed for less common hardware).
