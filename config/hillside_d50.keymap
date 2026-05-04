@@ -1,98 +1,101 @@
-/* Hillside Dactyl 50 keymap entry point.
+/* Hillside D50 keymap entry point.
  *
- * base.keymap defines a 34-key layout (30 alpha + 4 thumb). The D50 has 50
- * physical keys, so we wrap the base layout with 16 extra slots, all
- * defaulting to &none. Override any of the X_* macros below to bind keys —
- * the bindings apply across every layer in base.keymap.
+ * The Hillside D50 has 50 physical keys. base.keymap defines the standard
+ * 34-key core (30 alpha + 4 thumb); this file fills in the remaining 16
+ * extras (8 per side). Override any X_* macro below to bind a slot.
  *
- * The 50 physical keys break down as:
- *   30 alpha             (3 rows × 5 cols × 2 sides)         — base.keymap LT/RT/LM/RM/LB/RB
- *    6 outer pinky col   (1 extra col per side, 3 rows tall) — X_LT/X_LM/X_LB and X_RT/X_RM/X_RB
- *    4 alpha extras      (raised pair under each cluster,    — X_LL[2..3] and X_RL[0..1]
- *                         reached by index/middle finger —
- *                         NOT thumb keys)
- *   10 thumb cluster     (5 per side: 2 bot-corner +         — X_LL[0..1]/X_RL[2..3]/X_LH/
- *                         3 inner-cluster thumbs)              X_RH plus base.keymap LH/RH
+ * Each cell shows: SLOT NAME on top / current keycode on bottom.
+ * Alpha cells just show the Colemak-DH letter (those come from base.keymap).
  *
- * Full layout (top-down view, matches the d50_both_above reference photo).
- * The pinky home column is LT4/RT4 (= Q/' in Colemak-DH). X_LT/X_LM/X_LB
- * and X_RT/X_RM/X_RB are the *second* pinky column — a stretch reach outward
- * from the home pinky. On temper these don't exist, so binding choices are
- * fresh (common picks: Tab, Esc, Backspace, sticky modifiers).
+ *  LEFT HALF                                       RIGHT HALF
+ *  ╭─────┬─────┬─────┬─────┬─────┬─────╮           ╭─────┬─────┬─────┬─────┬─────┬─────╮
+ *  │X_LT │ LT4 │ LT3 │ LT2 │ LT1 │ LT0 │           │ RT0 │ RT1 │ RT2 │ RT3 │ RT4 │X_RT │
+ *  │ F13 │  Q  │  W  │  F  │  P  │  B  │           │  J  │  L  │  U  │  Y  │  '  │ F16 │
+ *  ├─────┼─────┼─────┼─────┼─────┼─────┤           ├─────┼─────┼─────┼─────┼─────┼─────┤
+ *  │X_LM │ LM4 │ LM3 │ LM2 │ LM1 │ LM0 │           │ RM0 │ RM1 │ RM2 │ RM3 │ RM4 │X_RM │
+ *  │ F14 │  A  │  R  │  S  │  T  │  G  │           │  M  │  N  │  E  │  I  │  O  │ F17 │
+ *  ├─────┼─────┼─────┼─────┼─────┼─────┤           ├─────┼─────┼─────┼─────┼─────┼─────┤
+ *  │X_LB │ LB4 │ LB3 │ LB2 │ LB1 │ LB0 │           │ RB0 │ RB1 │ RB2 │ RB3 │ RB4 │X_RB │
+ *  │ F15 │  Z  │  X  │  C  │  D  │  V  │           │  K  │  H  │  ,  │  .  │  ?  │ F18 │
+ *  ╰─────┴─────┼─────┼─────┼─────┴─────╯           ╰─────┴─────┼─────┼─────┼─────┴─────╯
+ *              │XLR0 │XLR1 │  raised pair                      │XRR0 │XRR1 │  raised pair
+ *              │ F21 │ F22 │  (under X / C)                    │ KP- │ KP+ │  (under , / .)
+ *              └─────┴─────┘                                   └─────┴─────┘
  *
- *   alpha cluster + outer pinky column
- *   ╭──────────────────────────────╮       ╭──────────────────────────────╮
- *   │ X_LT  LT4  LT3  LT2  LT1 LT0 │       │ RT0  RT1  RT2  RT3  RT4 X_RT │  row 0
- *   │ X_LM  LM4  LM3  LM2  LM1 LM0 │       │ RM0  RM1  RM2  RM3  RM4 X_RM │  row 1
- *   │ X_LB  LB4  LB3  LB2  LB1 LB0 │       │ RB0  RB1  RB2  RB3  RB4 X_RB │  row 2
- *   ╰──────────────────────────────╯       ╰──────────────────────────────╯
+ * THUMB CLUSTERS — drawn at scale (L-shape; bot row sticks out one slot toward outer):
  *
- *   raised alpha extras (between halves, under inner alpha cols, reached by
- *   index/middle finger curling down — these are NOT thumb keys):
- *                       ┌──────────┐  ┌──────────┐
- *                       │ X_LL[2]  │  │ X_RL[0]  │
- *                       │ X_LL[3]  │  │ X_RL[1]  │
- *                       └──────────┘  └──────────┘
+ *      LEFT (bot row sticks out LEFT)                RIGHT (bot row sticks out RIGHT)
  *
- *   bot-corner thumbs (under outer alpha cols 2–3 of each half, NOT in the
- *   gap — they sit directly below the alpha cluster):
+ *                  ┌─────┬─────┐                              ┌─────┬─────┐
+ *                  │XLU0 │XLU1 │                              │XRU0 │XRU1 │
+ *                  │ F23 │ F24 │   ← upper                    │ KP/ │ KP* │   ← upper
+ *            ┌─────┼─────┼─────┤                              ├─────┼─────┼─────┐
+ *            │X_LH │ LH1 │ LH0 │                              │ RH0 │ RH1 │X_RH │
+ *            │ F19 │ ret │space│   ← bottom                   │numL │magS │ F20 │   ← bottom
+ *            └─────┴─────┴─────┘                              └─────┴─────┴─────┘
+ *             outer ────────► inner                            inner ────────► outer
  *
- *   ┌──────────┐                                              ┌──────────┐
- *   │ X_LL[0]  │                                              │ X_RL[2]  │
- *   │ X_LL[1]  │                                              │ X_RL[3]  │
- *   └──────────┘                                              └──────────┘
+ *  Base-keymap thumbs (unchanged on every board):
+ *      LH1 = `&lt_spc NAV 0`     (tap = space, hold = NAV layer)
+ *      LH0 = `&lt FN RET`        (tap = return, hold = FN layer)
+ *      RH0 = SMART_NUM           (tap = numword, hold = NUM layer)
+ *      RH1 = MAGIC_SHIFT         (tap = sticky shift, hold = shift)
  *
- *   inner thumb cluster (6 keys curving across the gap, 3 per side):
- *
- *               ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐
- *               │ X_LH │ │LH[0] │ │LH[1] │ │RH[0] │ │RH[1] │ │ X_RH │
- *               │outer │ │middle│ │inner │ │inner │ │middle│ │outer │
- *               └──────┘ └──────┘ └──────┘ └──────┘ └──────┘ └──────┘
- *                  ↑       ↑        ↑         ↑       ↑         ↑
- *              outermost  Space   Return  SMART_NUM MAGIC_  outermost
- *                left     (lt_spc (lt FN              SHIFT  right
- *                         NAV)    RET)
- *
- * Slot summary (per side):
- *
- *   LEFT THUMB CLUSTER                  RIGHT THUMB CLUSTER (mirror)
- *   ──────────────────                  ────────────────────────────
- *   X_LL[0]  bot-corner outer RC(3,2)   X_RL[2]  bot-corner near   RC(3,8)
- *   X_LL[1]  bot-corner near  RC(3,3)   X_RL[3]  bot-corner outer  RC(3,9)
- *   X_LH     outer thumb      RC(4,5)   RH[0]    inner-most thumb  RC(4,8) = SMART_NUM
- *   LH[0]    middle thumb     RC(4,4)   RH[1]    middle thumb      RC(4,7) = MAGIC_SHIFT
- *   LH[1]    inner-most thumb RC(4,3)   X_RH     outer thumb       RC(4,6)
- *               (LH[0]/LH[1] = &lt_spc NAV / &lt FN RET from base.keymap)
- *
- * X_LL macro-arg order:  X_LL[0] X_LL[1] X_LL[2] X_LL[3]
- *                        bot-out bot-in  raised  raised
- *                        (thumb) (thumb) (alpha) (alpha)
- * X_RL macro-arg order:  X_RL[0] X_RL[1] X_RL[2] X_RL[3]
- *                        raised  raised  bot-in  bot-out
- *                        (alpha) (alpha) (thumb) (thumb)
+ *  Notes
+ *   • X_LR / X_RR sit physically below the alpha bottom row in the X/C
+ *     (left) and , / . (right) columns. Reachable by curling the
+ *     ring/middle finger past the bot alpha row.
+ *   • X_LH = LH2, X_RH = RH2 (the helpers labels for the outer-most thumb
+ *     on a 36+ key board). Wired up because key-labels/hillside_d50.h
+ *     defines LH2/RH2.
+ *   • Matrix-transform position order interleaves the row-3 macros, so the
+ *     keymap layer line below is `X_LR  X_LU  X_RU  X_RR` (left-to-right
+ *     scan), even though X_LR/X_RR are physically the raised pair and
+ *     X_LU/X_RU are the thumb-cluster upper row.
  */
 
 #define CONFIG_WIRELESS
 
-/* Second (outer) pinky column — 1 binding each. Physical keys exist on
- * this build; bindings TBD. Common choices: Tab, Esc, Backspace, sticky
- * mods. */
-#define X_LT &none
-#define X_RT &none
-#define X_LM &none
-#define X_RM &none
-#define X_LB &none
-#define X_RB &none
+/* === LAYOUT VERIFICATION PLACEHOLDERS ===
+ *
+ * Temporary unique keycodes on every extra so each physical press shows a
+ * distinct event in Karabiner Event Viewer. Once the mapping is confirmed,
+ * revert these to `&none` (or replace with real bindings).
+ *
+ *   slot       keycode         expected position
+ *   --------   --------------  -----------------------------------------
+ *   X_LT       F13             outer pinky col, top  (left)
+ *   X_LM       F14             outer pinky col, home (left)
+ *   X_LB       F15             outer pinky col, bot  (left)
+ *   X_RT       F16             outer pinky col, top  (right)
+ *   X_RM       F17             outer pinky col, home (right)
+ *   X_RB       F18             outer pinky col, bot  (right)
+ *   X_LH       F19             outer-bottom thumb    (left)
+ *   X_RH       F20             outer-bottom thumb    (right)
+ *   X_LR[0]    F21             raised pair, under R/X column (left)
+ *   X_LR[1]    F22             raised pair, under S/C column (left)
+ *   X_LU[0]    F23             thumb-cluster upper row, outer (left)
+ *   X_LU[1]    F24             thumb-cluster upper row, inner (left)
+ *   X_RU[0]    KP_DIVIDE       thumb-cluster upper row, inner (right)
+ *   X_RU[1]    KP_MULTIPLY     thumb-cluster upper row, outer (right)
+ *   X_RR[0]    KP_MINUS        raised pair, under E/, column (right)
+ *   X_RR[1]    KP_PLUS         raised pair, under I/. column (right)
+ */
 
-/* Outer-most thumbs (1 each side) — outside RH/LH from base.keymap. */
-#define X_LH &none
-#define X_RH &none
+#define X_LT &kp F13
+#define X_LM &kp F14
+#define X_LB &kp F15
+#define X_RT &kp F16
+#define X_RM &kp F17
+#define X_RB &kp F18
 
-/* X_LL/X_RL — 4 bindings each, mixed: first two are alpha extras (raised
- * pair, reached by index/middle finger), last two are thumb-cluster keys
- * on the right; left mirrors the order. See header for details. */
-#define X_LL &none &none &none &none
-#define X_RL &none &none &none &none
+#define X_LH &kp F19
+#define X_RH &kp F20
+
+#define X_LR &kp F21         &kp F22
+#define X_LU &kp F23         &kp F24
+#define X_RU &kp KP_DIVIDE   &kp KP_MULTIPLY
+#define X_RR &kp KP_MINUS    &kp KP_PLUS
 
 #define ZMK_BASE_LAYER(name, LT, RT, LM, RM, LB, RB, LH, RH)                   \
     ZMK_LAYER(                                                                 \
@@ -100,7 +103,7 @@
         X_LT  LT          RT  X_RT                                             \
         X_LM  LM          RM  X_RM                                             \
         X_LB  LB          RB  X_RB                                             \
-        X_LL              X_RL                                                 \
+              X_LR  X_LU  X_RU  X_RR                                           \
         X_LH  LH          RH  X_RH                                             \
     )
 

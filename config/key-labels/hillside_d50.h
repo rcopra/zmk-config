@@ -8,16 +8,24 @@
  *           │        │ 44 45 │ 46    │ │    47 │ 48 49 │
  *           ╰────────╯       ╰───────╯ ╰───────╯       ╰────────╯
  *
- *  Logical labels (positions 0/11/12/23/24/35 plus the 8 mid-row and the 2
- *  outer-thumb slots are extras — bind via X_LT/X_RT/... in the keymap):
+ *  Logical labels (X_* slots are extras — bind via the matching macros in
+ *  hillside_d50.keymap):
+ *
+ *      pos 0/11/12/23/24/35       outer pinky column → X_LT/X_LM/X_LB and
+ *                                                      X_RT/X_RM/X_RB
+ *      pos 36/37 (left)           raised pair        → X_LR (2 keys)
+ *      pos 42/43 (right)          raised pair        → X_RR (2 keys)
+ *      pos 38/39 (left)           thumb upper row    → X_LU (2 keys)
+ *      pos 40/41 (right)          thumb upper row    → X_RU (2 keys)
+ *      pos 44 (LH2) / 49 (RH2)    outer-bottom thumb → X_LH / X_RH
  *
  *  ╭─────────────────────────────────╮ ╭─────────────────────────────────╮
  *  │ X_LT LT4 LT3 LT2 LT1 LT0        │ │       RT0 RT1 RT2 RT3 RT4 X_RT  │
  *  │ X_LM LM4 LM3 LM2 LM1 LM0        │ │       RM0 RM1 RM2 RM3 RM4 X_RM  │
  *  │ X_LB LB4 LB3 LB2 LB1 LB0        │ │       RB0 RB1 RB2 RB3 RB4 X_RB  │
- *  ╰────────╮ X_LL ╭───────╮ X_RL    ╯ ╰   X_RL ╭───────╮ X_RL ╭─────────╯
- *           │      │ X_LH  │ LH1 LH0          RH0 RH1   │ X_RH │
- *           ╰──────╯       ╰───────╯ ╰───────╯          ╰──────╯
+ *  ╰────────╯ X_LR ╭──────╮ X_LU     ╯ ╰   X_RU ╭──────╮ X_RR ╰──────────╯
+ *                  │ X_LH LH1 LH0   │ │ RH0 RH1 X_RH │
+ *                  ╰────────────────╯ ╰──────────────╯
  */
 
 #pragma once
