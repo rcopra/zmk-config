@@ -1,0 +1,6 @@
+/* Same keymap as hillside_d50.keymap, used when the matching shield variant
+ * is `hillside_d50_dongle` (build runs on the XIAO BLE central). Kept as a
+ * separate file so the two builds can diverge later without coupling.
+ */
+
+#include "hillside_d50.keymap"

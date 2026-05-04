@@ -1,0 +1,53 @@
+if ZMK_BACKLIGHT
+
+config PWM
+    default y
+
+config LED_PWM
+    default y
+
+endif # ZMK_BACKLIGHT
+
+if SHIELD_HILLSIDE_D50_LEFT
+
+config ZMK_KEYBOARD_NAME
+    default "Hillside D50"
+
+config ZMK_SPLIT_ROLE_CENTRAL
+    default y
+
+endif
+
+if SHIELD_HILLSIDE_D50_DONGLE
+
+config ZMK_KEYBOARD_NAME
+    default "Hillside D50"
+
+config ZMK_SPLIT_ROLE_CENTRAL
+    default y
+
+config ZMK_USB
+    default y
+
+endif
+
+if SHIELD_HILLSIDE_D50_LEFT_DONGLE
+
+config ZMK_KEYBOARD_NAME
+    default "D50_L"
+
+endif
+
+if SHIELD_HILLSIDE_D50_RIGHT_DONGLE
+
+config ZMK_KEYBOARD_NAME
+    default "D50_R"
+
+endif
+
+if SHIELD_HILLSIDE_D50_LEFT || SHIELD_HILLSIDE_D50_RIGHT || SHIELD_HILLSIDE_D50_DONGLE || SHIELD_HILLSIDE_D50_LEFT_DONGLE || SHIELD_HILLSIDE_D50_RIGHT_DONGLE
+
+config ZMK_SPLIT
+    default y
+
+endif
