@@ -4,8 +4,10 @@
  * 34-key core (30 alpha + 4 thumb); this file fills in the remaining 16
  * extras (8 per side). Override any X_* macro below to bind a slot.
  *
- * Each cell shows: SLOT NAME on top / current keycode on bottom.
- * Alpha cells just show the Colemak-DH letter (those come from base.keymap).
+ * "Inner" = alpha-cluster side of each half; "outer" = gap side (between
+ * the two halves).
+ *
+ * Layout (slot label / current keycode in each cell):
  *
  *  LEFT HALF                                       RIGHT HALF
  *  ╭─────┬─────┬─────┬─────┬─────┬─────╮           ╭─────┬─────┬─────┬─────┬─────┬─────╮
@@ -22,42 +24,40 @@
  *              │ F21 │ F22 │  (under X / C)                    │ KP- │ KP+ │  (under , / .)
  *              └─────┴─────┘                                   └─────┴─────┘
  *
- * THUMB CLUSTERS — drawn at scale (L-shape; bot row sticks out one slot toward outer).
- * NOTE: the LEFT half's matrix scan order runs inner→outer for both thumb rows
- * (opposite of the right), so its slot labels read right-to-left.
+ * Thumb clusters (L-shape — bot row sticks out one slot toward inner/alpha side):
  *
- *      LEFT (bot row sticks out LEFT)                RIGHT (bot row sticks out RIGHT)
+ *  LEFT (bot row sticks out toward the alpha)        RIGHT (mirrored)
  *
- *                  ┌─────┬─────┐                              ┌─────┬─────┐
- *                  │XLU1 │XLU0 │                              │XRU0 │XRU1 │
- *                  │ F24 │ F23 │   ← upper                    │ KP/ │ KP* │   ← upper
- *            ┌─────┼─────┼─────┤                              ├─────┼─────┼─────┐
- *            │X_LH │ LH0 │ LH1 │                              │ RH0 │ RH1 │X_RH │
- *            │ F19 │ ret │space│   ← bottom                   │numL │magS │ F20 │   ← bottom
- *            └─────┴─────┴─────┘                              └─────┴─────┴─────┘
- *             outer ────────► inner                            inner ────────► outer
+ *                ┌─────┬─────┐                              ┌─────┬─────┐
+ *                │XLU0 │XLU1 │                              │XRU0 │XRU1 │
+ *                │ F23 │ F24 │  ← upper                     │ KP/ │ KP* │  ← upper
+ *          ┌─────┼─────┼─────┤                              ├─────┼─────┼─────┐
+ *          │ LH2 │ LH1 │X_LO │                              │X_RO │ RH0 │ RH1 │
+ *          │space│ ret │ F19 │  ← bottom                    │ F20 │numL │magS │  ← bottom
+ *          └─────┴─────┴─────┘                              └─────┴─────┴─────┘
+ *           inner ────────► outer                            outer ────────► inner
  *
- *  Base-keymap thumbs (unchanged on every board):
- *      LH1 = `&lt_spc NAV 0`     (tap = space, hold = NAV layer)
- *      LH0 = `&lt FN RET`        (tap = return, hold = FN layer)
- *      RH0 = SMART_NUM           (tap = numword, hold = NUM layer)
- *      RH1 = MAGIC_SHIFT         (tap = sticky shift, hold = shift)
+ * Base-keymap LH/RH bindings (unchanged on every board):
+ *     LH first  = `&lt_spc NAV 0`     tap = space,   hold = NAV
+ *     LH second = `&lt FN RET`        tap = return,  hold = FN
+ *     RH first  = SMART_NUM           tap = numword, hold = NUM
+ *     RH second = MAGIC_SHIFT         tap = sticky shift, hold = shift
  *
- *  Notes
- *   • X_LR / X_RR sit physically below the alpha bottom row in the X/C
- *     (left) and , / . (right) columns. Reachable by curling the
- *     ring/middle finger past the bot alpha row.
- *   • X_LH = LH2, X_RH = RH2 (the helpers labels for the outer-most thumb
- *     on a 36+ key board). Wired up because key-labels/hillside_d50.h
- *     defines LH2/RH2.
- *   • Matrix-transform position order interleaves the row-3 macros, so the
- *     keymap layer line below is `X_LR  X_LU  X_RU  X_RR` (left-to-right
- *     scan), even though X_LR/X_RR are physically the raised pair and
- *     X_LU/X_RU are the thumb-cluster upper row.
- *   • On the LEFT half, the matrix scan order on the upper and bot thumb
- *     rows runs inner→outer — that's why X_LU[0]/LH1 land on the inner
- *     positions in the diagram above. The right half scans outer→inner
- *     (its bindings appear in normal outer-to-inner reading order).
+ * On hillside the layer line below routes those bindings to LH2/LH1 (left)
+ * and RH0/RH1 (right) — i.e. shifted toward the inner/alpha side compared
+ * to a 4-thumb board. The slots X_LO and X_RO sit on the outer/gap side
+ * and are free for hillside-specific bindings.
+ *
+ * Notes
+ *   • X_LR / X_RR sit below the bottom alpha row in the X/C (left) and
+ *     , / . (right) columns. Reach by curling ring/middle finger past
+ *     the bot alpha row.
+ *   • X_LO = LH2 helper label (would be the outer-most thumb on a 36+
+ *     key board). On hillside it's the *gap-side* thumb on the bot row.
+ *     X_RO = RH2 mirror.
+ *   • Matrix-transform position order interleaves the row-3 macros, so
+ *     the keymap layer line is `X_LR X_LU X_RU X_RR` (raised-pair on
+ *     the outside, thumb-upper on the inside, mirrored).
  */
 
 #define CONFIG_WIRELESS
@@ -65,27 +65,33 @@
 /* === LAYOUT VERIFICATION PLACEHOLDERS ===
  *
  * Temporary unique keycodes on every extra so each physical press shows a
- * distinct event in Karabiner Event Viewer. Once the mapping is confirmed,
- * revert these to `&none` (or replace with real bindings).
+ * distinct event in Karabiner Event Viewer. Once confirmed, replace these
+ * with real bindings or `&none`.
  *
- *   slot       keycode         expected position
- *   --------   --------------  -----------------------------------------
- *   X_LT       F13             outer pinky col, top  (left)
- *   X_LM       F14             outer pinky col, home (left)
- *   X_LB       F15             outer pinky col, bot  (left)
- *   X_RT       F16             outer pinky col, top  (right)
- *   X_RM       F17             outer pinky col, home (right)
- *   X_RB       F18             outer pinky col, bot  (right)
- *   X_LH       F19             outer-bottom thumb    (left)
- *   X_RH       F20             outer-bottom thumb    (right)
- *   X_LR[0]    F21             raised pair, under R/X column (left)
- *   X_LR[1]    F22             raised pair, under S/C column (left)
- *   X_LU[0]    F23             thumb-cluster upper row, outer (left)
- *   X_LU[1]    F24             thumb-cluster upper row, inner (left)
- *   X_RU[0]    KP_DIVIDE       thumb-cluster upper row, inner (right)
- *   X_RU[1]    KP_MULTIPLY     thumb-cluster upper row, outer (right)
- *   X_RR[0]    KP_MINUS        raised pair, under E/, column (right)
- *   X_RR[1]    KP_PLUS         raised pair, under I/. column (right)
+ *   slot       keycode      physical position
+ *   --------   ----------   ------------------------------------------
+ *   X_LT       F13          outer-pinky col, top   (left)
+ *   X_LM       F14          outer-pinky col, home  (left)
+ *   X_LB       F15          outer-pinky col, bot   (left)
+ *   X_RT       F16          outer-pinky col, top   (right)
+ *   X_RM       F17          outer-pinky col, home  (right)
+ *   X_RB       F18          outer-pinky col, bot   (right)
+ *   X_LO       F19          gap-side bot thumb     (left,  was X_LH)
+ *   X_RO       F20          gap-side bot thumb     (right, was X_RH)
+ *   X_LR[0]    F21          raised pair, under X col       (left)
+ *   X_LR[1]    F22          raised pair, under C col       (left)
+ *   X_LU[0]    F23          thumb upper, inner side        (left)
+ *   X_LU[1]    F24          thumb upper, outer side        (left)
+ *   X_RU[0]    KP_DIVIDE    thumb upper, outer side        (right)
+ *   X_RU[1]    KP_MULTIPLY  thumb upper, inner side        (right)
+ *   X_RR[0]    KP_MINUS     raised pair, under , col       (right)
+ *   X_RR[1]    KP_PLUS      raised pair, under . col       (right)
+ *
+ * Base-keymap LH/RH bindings now land at the inner/alpha side:
+ *   inner-most LEFT bot  = SPACE  (was X_LH/F19 before this rearrangement)
+ *   middle LEFT bot      = RET    (was the first LH binding before)
+ *   inner-most RIGHT bot = MAGIC_SHIFT  (was X_RH/F20 before)
+ *   middle RIGHT bot     = SMART_NUM    (was the second RH binding before)
  */
 
 #define X_LT &kp F13
@@ -95,14 +101,19 @@
 #define X_RM &kp F17
 #define X_RB &kp F18
 
-#define X_LH &kp F19
-#define X_RH &kp F20
+/* Outer (gap-side) bot-thumb extras. Free slots — F19/F20 are placeholders
+ * for layout verification only. */
+#define X_LO &kp F19
+#define X_RO &kp F20
 
 #define X_LR &kp F21         &kp F22
 #define X_LU &kp F23         &kp F24
 #define X_RU &kp KP_DIVIDE   &kp KP_MULTIPLY
 #define X_RR &kp KP_MINUS    &kp KP_PLUS
 
+/* Thumb-row layout: LH and RH are pulled inward (toward the alpha
+ * cluster), so they land on LH2/LH1 and RH0/RH1. The X_LO/X_RO slots
+ * occupy the outer (gap-side) thumb positions. */
 #define ZMK_BASE_LAYER(name, LT, RT, LM, RM, LB, RB, LH, RH)                   \
     ZMK_LAYER(                                                                 \
         name,                                                                  \
@@ -110,7 +121,7 @@
         X_LM  LM          RM  X_RM                                             \
         X_LB  LB          RB  X_RB                                             \
               X_LR  X_LU  X_RU  X_RR                                           \
-        X_LH  LH          RH  X_RH                                             \
+        LH    X_LO        X_RO  RH                                             \
     )
 
 #include "key-labels/hillside_d50.h"
