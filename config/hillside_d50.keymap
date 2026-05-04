@@ -32,8 +32,8 @@
  *                │XLU0 │XLU1 │                              │XRU0 │XRU1 │
  *                │ F23 │ F24 │  ← upper                     │ KP/ │ KP* │  ← upper
  *          ┌─────┼─────┼─────┤                              ├─────┼─────┼─────┐
- *          │ LH2 │ LH1 │X_LO │                              │X_RO │ RH0 │ RH1 │
- *          │space│ ret │ F19 │  ← bottom                    │ F20 │numL │magS │  ← bottom
+ *          │SPACE│TMUX │ RET │                              │X_RO │ RH0 │ RH1 │
+ *          │     │ ⌃A  │     │  ← bottom                    │ F20 │numL │magS │  ← bottom
  *          └─────┴─────┴─────┘                              └─────┴─────┴─────┘
  *           inner ────────► outer                            outer ────────► inner
  *
@@ -62,11 +62,7 @@
 
 #define CONFIG_WIRELESS
 
-/* === LAYOUT VERIFICATION PLACEHOLDERS ===
- *
- * Temporary unique keycodes on every extra so each physical press shows a
- * distinct event in Karabiner Event Viewer. Once confirmed, replace these
- * with real bindings or `&none`.
+/* === LAYOUT VERIFICATION PLACEHOLDERS (extras only) ===
  *
  *   slot       keycode      physical position
  *   --------   ----------   ------------------------------------------
@@ -76,8 +72,7 @@
  *   X_RT       F16          outer-pinky col, top   (right)
  *   X_RM       F17          outer-pinky col, home  (right)
  *   X_RB       F18          outer-pinky col, bot   (right)
- *   X_LO       F19          gap-side bot thumb     (left,  was X_LH)
- *   X_RO       F20          gap-side bot thumb     (right, was X_RH)
+ *   X_RO       F20          gap-side bot thumb     (right)
  *   X_LR[0]    F21          raised pair, under X col       (left)
  *   X_LR[1]    F22          raised pair, under C col       (left)
  *   X_LU[0]    F23          thumb upper, inner side        (left)
@@ -87,11 +82,10 @@
  *   X_RR[0]    KP_MINUS     raised pair, under , col       (right)
  *   X_RR[1]    KP_PLUS      raised pair, under . col       (right)
  *
- * Base-keymap LH/RH bindings now land at the inner/alpha side:
- *   inner-most LEFT bot  = SPACE  (was X_LH/F19 before this rearrangement)
- *   middle LEFT bot      = RET    (was the first LH binding before)
- *   inner-most RIGHT bot = MAGIC_SHIFT  (was X_RH/F20 before)
- *   middle RIGHT bot     = SMART_NUM    (was the second RH binding before)
+ * Left bot-thumb row is now hardcoded (no extras slot):
+ *   inner  L bot = SPACE       (`&lt_spc NAV 0`)
+ *   middle L bot = TMUX_PRE    (`&kp LC(A)`)
+ *   outer  L bot = RETURN      (`&lt FN RET`)
  */
 
 #define X_LT &kp F13
@@ -101,9 +95,7 @@
 #define X_RM &kp F17
 #define X_RB &kp F18
 
-/* Outer (gap-side) bot-thumb extras. Free slots — F19/F20 are placeholders
- * for layout verification only. */
-#define X_LO &kp F19
+/* Outer (gap-side) bot-thumb extra on the right. Placeholder for now. */
 #define X_RO &kp F20
 
 #define X_LR &kp F21         &kp F22
@@ -111,9 +103,10 @@
 #define X_RU &kp KP_DIVIDE   &kp KP_MULTIPLY
 #define X_RR &kp KP_MINUS    &kp KP_PLUS
 
-/* Thumb-row layout: LH and RH are pulled inward (toward the alpha
- * cluster), so they land on LH2/LH1 and RH0/RH1. The X_LO/X_RO slots
- * occupy the outer (gap-side) thumb positions. */
+/* Left thumb-row: bypass the LH macro arg from base.keymap so we can put
+ * TMUX_PRE between the SPACE and RETURN bindings. The LH parameter is
+ * still required by the macro signature but goes unused on hillside.
+ * Right side keeps using RH as-is, with X_RO at the gap-side slot. */
 #define ZMK_BASE_LAYER(name, LT, RT, LM, RM, LB, RB, LH, RH)                   \
     ZMK_LAYER(                                                                 \
         name,                                                                  \
@@ -121,7 +114,7 @@
         X_LM  LM          RM  X_RM                                             \
         X_LB  LB          RB  X_RB                                             \
               X_LR  X_LU  X_RU  X_RR                                           \
-        LH    X_LO        X_RO  RH                                             \
+        &lt_spc NAV 0  TMUX_PRE  &lt FN RET    X_RO  RH                        \
     )
 
 #include "key-labels/hillside_d50.h"
