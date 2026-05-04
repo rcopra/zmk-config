@@ -22,15 +22,17 @@
  *              │ F21 │ F22 │  (under X / C)                    │ KP- │ KP+ │  (under , / .)
  *              └─────┴─────┘                                   └─────┴─────┘
  *
- * THUMB CLUSTERS — drawn at scale (L-shape; bot row sticks out one slot toward outer):
+ * THUMB CLUSTERS — drawn at scale (L-shape; bot row sticks out one slot toward outer).
+ * NOTE: the LEFT half's matrix scan order runs inner→outer for both thumb rows
+ * (opposite of the right), so its slot labels read right-to-left.
  *
  *      LEFT (bot row sticks out LEFT)                RIGHT (bot row sticks out RIGHT)
  *
  *                  ┌─────┬─────┐                              ┌─────┬─────┐
- *                  │XLU0 │XLU1 │                              │XRU0 │XRU1 │
- *                  │ F23 │ F24 │   ← upper                    │ KP/ │ KP* │   ← upper
+ *                  │XLU1 │XLU0 │                              │XRU0 │XRU1 │
+ *                  │ F24 │ F23 │   ← upper                    │ KP/ │ KP* │   ← upper
  *            ┌─────┼─────┼─────┤                              ├─────┼─────┼─────┐
- *            │X_LH │ LH1 │ LH0 │                              │ RH0 │ RH1 │X_RH │
+ *            │X_LH │ LH0 │ LH1 │                              │ RH0 │ RH1 │X_RH │
  *            │ F19 │ ret │space│   ← bottom                   │numL │magS │ F20 │   ← bottom
  *            └─────┴─────┴─────┘                              └─────┴─────┴─────┘
  *             outer ────────► inner                            inner ────────► outer
@@ -52,6 +54,10 @@
  *     keymap layer line below is `X_LR  X_LU  X_RU  X_RR` (left-to-right
  *     scan), even though X_LR/X_RR are physically the raised pair and
  *     X_LU/X_RU are the thumb-cluster upper row.
+ *   • On the LEFT half, the matrix scan order on the upper and bot thumb
+ *     rows runs inner→outer — that's why X_LU[0]/LH1 land on the inner
+ *     positions in the diagram above. The right half scans outer→inner
+ *     (its bindings appear in normal outer-to-inner reading order).
  */
 
 #define CONFIG_WIRELESS
