@@ -1,120 +1,57 @@
 /* Hillside D50 keymap entry point.
  *
- * The Hillside D50 has 50 physical keys. base.keymap defines the standard
- * 34-key core (30 alpha + 4 thumb); this file fills in the remaining 16
- * extras (8 per side). Override any X_* macro below to bind a slot.
+ * 50 keys = 30 alpha + 4 base thumb (from base.keymap) + 16 extras.
+ * Edit bindings inline in ZMK_BASE_LAYER below. Keep the diagram in
+ * sync when you change a binding.
  *
- * "Inner" = alpha-cluster side of each half; "outer" = gap side (between
- * the two halves).
+ * "Inner" = alpha-cluster side; "outer" = gap side. F13–F24 / KP_* are
+ * layout-verification placeholders — replace as you decide on real
+ * bindings.
  *
- * Layout (slot label / current keycode in each cell):
+ * Current bindings:
  *
  *  LEFT HALF                                       RIGHT HALF
  *  ╭─────┬─────┬─────┬─────┬─────┬─────╮           ╭─────┬─────┬─────┬─────┬─────┬─────╮
- *  │X_LT │ LT4 │ LT3 │ LT2 │ LT1 │ LT0 │           │ RT0 │ RT1 │ RT2 │ RT3 │ RT4 │X_RT │
  *  │ F13 │  Q  │  W  │  F  │  P  │  B  │           │  J  │  L  │  U  │  Y  │  '  │ F16 │
  *  ├─────┼─────┼─────┼─────┼─────┼─────┤           ├─────┼─────┼─────┼─────┼─────┼─────┤
- *  │X_LM │ LM4 │ LM3 │ LM2 │ LM1 │ LM0 │           │ RM0 │ RM1 │ RM2 │ RM3 │ RM4 │X_RM │
  *  │ F14 │  A  │  R  │  S  │  T  │  G  │           │  M  │  N  │  E  │  I  │  O  │ F17 │
  *  ├─────┼─────┼─────┼─────┼─────┼─────┤           ├─────┼─────┼─────┼─────┼─────┼─────┤
- *  │X_LB │ LB4 │ LB3 │ LB2 │ LB1 │ LB0 │           │ RB0 │ RB1 │ RB2 │ RB3 │ RB4 │X_RB │
  *  │ F15 │  Z  │  X  │  C  │  D  │  V  │           │  K  │  H  │  ,  │  .  │  ?  │ F18 │
  *  ╰─────┴─────┼─────┼─────┼─────┴─────╯           ╰─────┴─────┼─────┼─────┼─────┴─────╯
- *              │XLR0 │XLR1 │  raised pair                      │XRR0 │XRR1 │  raised pair
- *              │ F21 │ F22 │  (under X / C)                    │ KP- │ KP+ │  (under , / .)
- *              └─────┴─────┘                                   └─────┴─────┘
+ *              │ F21 │ --- │  raised pair                      │ KP- │ KP+ │  raised pair
+ *              └─────┴─────┘  (under X / C)                    └─────┴─────┘  (under , / .)
+ *              note: F22 is YADS's screen-toggle hotkey — left as &none here.
  *
- * Thumb clusters (L-shape — bot row sticks out one slot toward inner/alpha side):
+ * Thumb clusters (L-shape — bot row sticks out one slot toward the alpha side):
  *
- *  LEFT (bot row sticks out toward the alpha)        RIGHT (mirrored)
- *
+ *  LEFT                                            RIGHT
  *                ┌─────┬─────┐                              ┌─────┬─────┐
- *                │XLU0 │XLU1 │                              │XRU0 │XRU1 │
- *                │ F23 │ F24 │  ← upper                     │ KP/ │ KP* │  ← upper
+ *                │TMUX │ F24 │  ← upper                     │ KP/ │ KP* │  ← upper
+ *                │ ⌃A  │     │                              │     │     │
  *          ┌─────┼─────┼─────┤                              ├─────┼─────┼─────┐
- *          │SPACE│TMUX │ RET │                              │X_RO │ RH0 │ RH1 │
- *          │     │ ⌃A  │     │  ← bottom                    │ F20 │numL │magS │  ← bottom
+ *          │SPACE│ RET │ --- │  ← bottom                    │ F20 │numL │magS │  ← bottom
  *          └─────┴─────┴─────┘                              └─────┴─────┴─────┘
  *           inner ────────► outer                            outer ────────► inner
  *
- * Base-keymap LH/RH bindings (unchanged on every board):
- *     LH first  = `&lt_spc NAV 0`     tap = space,   hold = NAV
- *     LH second = `&lt FN RET`        tap = return,  hold = FN
- *     RH first  = SMART_NUM           tap = numword, hold = NUM
- *     RH second = MAGIC_SHIFT         tap = sticky shift, hold = shift
- *
- * On hillside the layer line below routes those bindings to LH2/LH1 (left)
- * and RH0/RH1 (right) — i.e. shifted toward the inner/alpha side compared
- * to a 4-thumb board. The slots X_LO and X_RO sit on the outer/gap side
- * and are free for hillside-specific bindings.
- *
- * Notes
- *   • X_LR / X_RR sit below the bottom alpha row in the X/C (left) and
- *     , / . (right) columns. Reach by curling ring/middle finger past
- *     the bot alpha row.
- *   • X_LO = LH2 helper label (would be the outer-most thumb on a 36+
- *     key board). On hillside it's the *gap-side* thumb on the bot row.
- *     X_RO = RH2 mirror.
- *   • Matrix-transform position order interleaves the row-3 macros, so
- *     the keymap layer line is `X_LR X_LU X_RU X_RR` (raised-pair on
- *     the outside, thumb-upper on the inside, mirrored).
+ * Row-3 quirk: the layer macro interleaves L raised-pair, L thumb-upper,
+ * R thumb-upper, R raised-pair (that's the physical left-to-right order
+ * across both halves), 2 bindings per cluster.
  */
 
 #define CONFIG_WIRELESS
 
-/* === LAYOUT VERIFICATION PLACEHOLDERS (extras only) ===
- *
- *   slot       keycode      physical position
- *   --------   ----------   ------------------------------------------
- *   X_LT       F13          outer-pinky col, top   (left)
- *   X_LM       F14          outer-pinky col, home  (left)
- *   X_LB       F15          outer-pinky col, bot   (left)
- *   X_RT       F16          outer-pinky col, top   (right)
- *   X_RM       F17          outer-pinky col, home  (right)
- *   X_RB       F18          outer-pinky col, bot   (right)
- *   X_RO       F20          gap-side bot thumb     (right)
- *   X_LR[0]    F21          raised pair, under X col       (left)
- *   X_LR[1]    F22          raised pair, under C col       (left)
- *   X_LU[0]    F23          thumb upper, inner side        (left)
- *   X_LU[1]    F24          thumb upper, outer side        (left)
- *   X_RU[0]    KP_DIVIDE    thumb upper, outer side        (right)
- *   X_RU[1]    KP_MULTIPLY  thumb upper, inner side        (right)
- *   X_RR[0]    KP_MINUS     raised pair, under , col       (right)
- *   X_RR[1]    KP_PLUS      raised pair, under . col       (right)
- *
- * Left bot-thumb row is now hardcoded (no extras slot):
- *   inner  L bot = SPACE       (`&lt_spc NAV 0`)
- *   middle L bot = TMUX_PRE    (`&kp LC(A)`)
- *   outer  L bot = RETURN      (`&lt FN RET`)
- */
-
-#define X_LT &kp F13
-#define X_LM &kp F14
-#define X_LB &kp F15
-#define X_RT &kp F16
-#define X_RM &kp F17
-#define X_RB &kp F18
-
-/* Outer (gap-side) bot-thumb extra on the right. Placeholder for now. */
-#define X_RO &kp F20
-
-#define X_LR &kp F21         &kp F22
-#define X_LU &kp F23         &kp F24
-#define X_RU &kp KP_DIVIDE   &kp KP_MULTIPLY
-#define X_RR &kp KP_MINUS    &kp KP_PLUS
-
-/* Left thumb-row: bypass the LH macro arg from base.keymap so we can put
- * TMUX_PRE between the SPACE and RETURN bindings. The LH parameter is
- * still required by the macro signature but goes unused on hillside.
- * Right side keeps using RH as-is, with X_RO at the gap-side slot. */
-#define ZMK_BASE_LAYER(name, LT, RT, LM, RM, LB, RB, LH, RH)                   \
-    ZMK_LAYER(                                                                 \
-        name,                                                                  \
-        X_LT  LT          RT  X_RT                                             \
-        X_LM  LM          RM  X_RM                                             \
-        X_LB  LB          RB  X_RB                                             \
-              X_LR  X_LU  X_RU  X_RR                                           \
-        &lt_spc NAV 0  TMUX_PRE  &lt FN RET    X_RO  RH                        \
+#define ZMK_BASE_LAYER(name, LT, RT, LM, RM, LB, RB, LH, RH)                                          \
+    ZMK_LAYER(name,                                                                                   \
+        /* row 0  outer-L | top alphas (LT)         | top alphas (RT)         | outer-R         */    \
+        &kp F13           LT                          RT                        &kp F16               \
+        /* row 1  outer-L | home alphas (LM)        | home alphas (RM)        | outer-R         */    \
+        &kp F14           LM                          RM                        &kp F17               \
+        /* row 2  outer-L | bot alphas (LB)         | bot alphas (RB)         | outer-R         */    \
+        &kp F15           LB                          RB                        &kp F18               \
+        /* row 3  L raised pair       | L thumb upper       | R thumb upper            | R raised pair      */ \
+        &kp F21 &none                   &kp F24 TMUX_PRE      &kp KP_DIVIDE  TMUX_PRE    &kp KP_MINUS &kp KP_PLUS \
+        /* row 4  L thumb bot (inner | mid | outer)          | R thumb bot (outer | mid | inner)              */ \
+        &lt_spc NAV 0  &lt FN RET  &none                       TMUX_PRE  RH                            \
     )
 
 #include "key-labels/hillside_d50.h"
