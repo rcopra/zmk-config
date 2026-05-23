@@ -51,7 +51,7 @@
         /* row 3  L raised pair       | L thumb upper       | R thumb upper            | R raised pair      */ \
         &kp F21 &none                   &kp F24 TMUX_PRE      &kp KP_DIVIDE  TMUX_PRE    &kp KP_MINUS &kp KP_PLUS \
         /* row 4  L thumb bot (inner | mid | outer)          | R thumb bot (outer | mid | inner)              */ \
-        &lt_spc NAV 0  &lt FN RET  &none                       TMUX_PRE  RH                            \
+        &lt_spc NAV 0  &lt FN RET  &none                       SPACE  RH                            \
     )
 
 #include "key-labels/hillside_d50.h"
