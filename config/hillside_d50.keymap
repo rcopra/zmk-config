@@ -1,57 +1,39 @@
-/* Hillside D50 keymap entry point.
+/* Hillside D50 keymap.
  *
- * 50 keys = 30 alpha + 4 base thumb (from base.keymap) + 16 extras.
- * Edit bindings inline in ZMK_BASE_LAYER below. Keep the diagram in
- * sync when you change a binding.
+ * 50 keys = 34 base (handled by base.keymap) + 16 d50 extras (defined here).
+ * LT/RT/LM/RM/LB/RB/LH/RH expand to base.keymap's per-layer alphas and thumbs;
+ * the inline templates below highlight only the d50-specific positions.
  *
- * "Inner" = alpha-cluster side; "outer" = gap side. F13–F24 / KP_* are
- * layout-verification placeholders — replace as you decide on real
- * bindings.
+ * Thumb cluster L-shape (left shown; right mirrors):
  *
- * Current bindings:
- *
- *  LEFT HALF                                       RIGHT HALF
- *  ╭─────┬─────┬─────┬─────┬─────┬─────╮           ╭─────┬─────┬─────┬─────┬─────┬─────╮
- *  │ F13 │  Q  │  W  │  F  │  P  │  B  │           │  J  │  L  │  U  │  Y  │  '  │ F16 │
- *  ├─────┼─────┼─────┼─────┼─────┼─────┤           ├─────┼─────┼─────┼─────┼─────┼─────┤
- *  │ F14 │  A  │  R  │  S  │  T  │  G  │           │  M  │  N  │  E  │  I  │  O  │ F17 │
- *  ├─────┼─────┼─────┼─────┼─────┼─────┤           ├─────┼─────┼─────┼─────┼─────┼─────┤
- *  │ F15 │  Z  │  X  │  C  │  D  │  V  │           │  K  │  H  │  ,  │  .  │  ?  │ F18 │
- *  ╰─────┴─────┼─────┼─────┼─────┴─────╯           ╰─────┴─────┼─────┼─────┼─────┴─────╯
- *              │ F21 │ --- │  raised pair                      │ KP- │ KP+ │  raised pair
- *              └─────┴─────┘  (under X / C)                    └─────┴─────┘  (under , / .)
- *              note: F22 is YADS's screen-toggle hotkey — left as &none here.
- *
- * Thumb clusters (L-shape — bot row sticks out one slot toward the alpha side):
- *
- *  LEFT                                            RIGHT
- *                ┌─────┬─────┐                              ┌─────┬─────┐
- *                │TMUX │ F24 │  ← upper                     │ KP/ │ KP* │  ← upper
- *                │ ⌃A  │     │                              │     │     │
- *          ┌─────┼─────┼─────┤                              ├─────┼─────┼─────┐
- *          │SPACE│ RET │ --- │  ← bottom                    │ F20 │numL │magS │  ← bottom
- *          └─────┴─────┴─────┘                              └─────┴─────┴─────┘
- *           inner ────────► outer                            outer ────────► inner
- *
- * Row-3 quirk: the layer macro interleaves L raised-pair, L thumb-upper,
- * R thumb-upper, R raised-pair (that's the physical left-to-right order
- * across both halves), 2 bindings per cluster.
+ *               ╭─────┬─────╮
+ *               │ in  │ out │            ← upper (2 keys, sits above mid+out)
+ *         ╭─────┼─────┼─────┤
+ *         │ in  │ mid │ out │            ← bottom (3 keys, sticks toward inner)
+ *         ╰─────┴─────┴─────╯
  */
 
 #define CONFIG_WIRELESS
 
-#define ZMK_BASE_LAYER(name, LT, RT, LM, RM, LB, RB, LH, RH)                                          \
-    ZMK_LAYER(name,                                                                                   \
-        /* row 0  outer-L | top alphas (LT)         | top alphas (RT)         | outer-R         */    \
-        &kp F13           LT                          RT                        &kp F16               \
-        /* row 1  outer-L | home alphas (LM)        | home alphas (RM)        | outer-R         */    \
-        &kp F14           LM                          RM                        &kp F17               \
-        /* row 2  outer-L | bot alphas (LB)         | bot alphas (RB)         | outer-R         */    \
-        &kp F15           LB                          RB                        &kp F18               \
-        /* row 3  L raised pair       | L thumb upper       | R thumb upper            | R raised pair      */ \
-        &kp F21 &none                   &kp F24 TMUX_PRE      &kp KP_DIVIDE  TMUX_PRE    &kp KP_MINUS &kp KP_PLUS \
-        /* row 4  L thumb bot (inner | mid | outer)          | R thumb bot (outer | mid | inner)              */ \
-        &lt_spc NAV 0  &lt FN RET  &none                       SPACE  RH                            \
+#define ZMK_BASE_LAYER(name, LT, RT, LM, RM, LB, RB, LH, RH)                                              \
+    ZMK_LAYER(name,                                                                                       \
+        /* ╭───────╮                                                                  ╭───────╮ */        \
+           &kp TILDE        LT                                          RT            &kp BSPC            \
+        /* ├───────┤                                                                  ├───────┤ */        \
+           &kp GRAVE        LM                                          RM            &kp RET             \
+        /* ├───────┤                                                                  ├───────┤ */        \
+           &kp UNDER        LB                                          RB            &kp MINUS           \
+        /* ╰───────╯                                                                  ╰───────╯ */        \
+                                                                                                          \
+        /*  L raised pair         L thumb upper           R thumb upper         R raised pair */          \
+        /*  ╭─────┬─────╮         ╭─────┬─────╮           ╭─────┬─────╮         ╭─────┬─────╮ */          \
+            &kp F21 &none         &kp F24 TMUX_PRE        &kp KP_DIVIDE TMUX_PRE        &kp KP_MINUS &kp KP_PLUS \
+        /*  ╰─────┴─────╯         ╰─────┴─────╯           ╰─────┴─────╯         ╰─────┴─────╯ */          \
+                                                                                                          \
+        /*        L thumb bottom (in,mid,out)                   R thumb bottom (out,mid,in) */            \
+        /*        ╭─────┬─────┬─────╮                           ╭─────┬─────┬─────╮ */                    \
+           &lt_spc NAV 0    &lt FN RET    &none                   &kp SPACE                   RH         \
+        /*        ╰─────┴─────┴─────╯                           ╰─────┴─────┴─────╯ */                    \
     )
 
 #include "key-labels/hillside_d50.h"
