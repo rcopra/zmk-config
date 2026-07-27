@@ -43,8 +43,8 @@ layers:
     - Ctl+A
     - KP DIVIDE
     - Ctl+A
-    - KP MINUS
-    - KP PLUS
+    - ''
+    - Ctl+Alt+Gui
     - {t: Spc, h: Nav, s: Sentence}
     - {t: Enter, h: Fn}
     - ''
@@ -94,8 +94,8 @@ layers:
     - Ctl+A
     - KP DIVIDE
     - Ctl+A
-    - KP MINUS
-    - KP PLUS
+    - ''
+    - Ctl+Alt+Gui
     - {t: Spc, h: Nav, s: Sentence}
     - {t: Enter, h: Fn}
     - ''
@@ -145,8 +145,8 @@ layers:
     - Ctl+A
     - KP DIVIDE
     - Ctl+A
-    - KP MINUS
-    - KP PLUS
+    - ''
+    - Ctl+Alt+Gui
     - {t: Spc, h: Nav, s: Sentence, type: held}
     - {t: Enter, h: Fn}
     - ''
@@ -196,8 +196,8 @@ layers:
     - Ctl+A
     - KP DIVIDE
     - Ctl+A
-    - KP MINUS
-    - KP PLUS
+    - ''
+    - Ctl+Alt+Gui
     - {t: Spc, h: Nav, s: Sentence}
     - {t: Enter, h: Fn, type: held}
     - ''
@@ -247,8 +247,8 @@ layers:
     - Ctl+A
     - KP DIVIDE
     - Ctl+A
-    - KP MINUS
-    - KP PLUS
+    - ''
+    - Ctl+Alt+Gui
     - {t: Spc, h: Nav, s: Sentence}
     - {t: Enter, h: Fn}
     - ''
@@ -298,8 +298,8 @@ layers:
     - Ctl+A
     - KP DIVIDE
     - Ctl+A
-    - KP MINUS
-    - KP PLUS
+    - ''
+    - Ctl+Alt+Gui
     - {t: Spc, h: Nav, s: Sentence}
     - {t: Enter, h: Fn, type: held}
     - ''
@@ -349,8 +349,8 @@ layers:
     - Ctl+A
     - KP DIVIDE
     - Ctl+A
-    - KP MINUS
-    - KP PLUS
+    - ''
+    - Ctl+Alt+Gui
     - {t: Spc, h: Nav, s: Sentence}
     - {t: Enter, h: Fn}
     - ''

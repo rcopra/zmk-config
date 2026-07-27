@@ -27,8 +27,8 @@
                                                                                                           \
         /*  L raised pair         L thumb upper           R thumb upper         R raised pair */          \
         /*  ╭─────┬─────╮         ╭─────┬─────╮           ╭─────┬─────╮         ╭─────┬─────╮ */          \
-        /*  Lower L raised = Hyper-3 (Ctrl+Opt+Cmd) — WM modifier, mirrors Caps Lock on laptop (Karabiner) */ \
-            &kp LC(LA(LGUI)) &none  &kp F24 TMUX_PRE      &kp KP_DIVIDE TMUX_PRE        &kp KP_MINUS &kp KP_PLUS \
+        /*  Raised pairs: Hyper-3 (Ctrl+Opt+Cmd) mirrored on both hands — WM modifier, = Caps Lock on laptop */ \
+            &kp LC(LA(LGUI)) &none  &kp F24 TMUX_PRE      &kp KP_DIVIDE TMUX_PRE        &none &kp LC(LA(LGUI)) \
         /*  ╰─────┴─────╯         ╰─────┴─────╯           ╰─────┴─────╯         ╰─────┴─────╯ */          \
                                                                                                           \
         /*        L thumb bottom (in,mid,out)                   R thumb bottom (out,mid,in) */            \
