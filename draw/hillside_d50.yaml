@@ -1,0 +1,473 @@
+layout: {zmk_keyboard: hillside_d50}
+layers:
+  Base:
+    - '~'
+    - Q
+    - W
+    - F
+    - P
+    - B
+    - J
+    - L
+    - U
+    - Y
+    - ''''
+    - Bspc
+    - '`'
+    - {t: A, h: Ctrl}
+    - {t: R, h: Alt}
+    - {t: S, h: Gui}
+    - {t: T, h: Shift}
+    - G
+    - M
+    - {t: N, h: Shift}
+    - {t: E, h: Gui}
+    - {t: I, h: Alt}
+    - {t: O, h: Ctrl}
+    - Enter
+    - _
+    - Z
+    - X
+    - C
+    - D
+    - V
+    - K
+    - H
+    - {t: ',', s: ;}
+    - {t: ., s: ':'}
+    - {t: '?', s: '!'}
+    - '-'
+    - Ctl+Alt+Gui
+    - ''
+    - F24
+    - Ctl+A
+    - KP DIVIDE
+    - Ctl+A
+    - KP MINUS
+    - KP PLUS
+    - {t: Spc, h: Nav, s: Sentence}
+    - {t: Enter, h: Fn}
+    - ''
+    - Spc
+    - {t: Numword, h: Num, s: Sticky Num}
+    - {t: Magic, h: Shift}
+  Game:
+    - '~'
+    - Q
+    - W
+    - E
+    - R
+    - T
+    - Y
+    - U
+    - I
+    - O
+    - P
+    - Bspc
+    - '`'
+    - A
+    - S
+    - D
+    - F
+    - G
+    - H
+    - {t: J, h: Shift}
+    - {t: K, h: Gui}
+    - {t: L, h: Alt}
+    - {t: ;, h: Ctrl}
+    - Enter
+    - _
+    - Z
+    - X
+    - C
+    - V
+    - B
+    - N
+    - M
+    - ','
+    - .
+    - /
+    - '-'
+    - Ctl+Alt+Gui
+    - ''
+    - F24
+    - Ctl+A
+    - KP DIVIDE
+    - Ctl+A
+    - KP MINUS
+    - KP PLUS
+    - {t: Spc, h: Nav, s: Sentence}
+    - {t: Enter, h: Fn}
+    - ''
+    - Spc
+    - {t: Numword, h: Num, s: Sticky Num}
+    - {t: Magic, h: Shift}
+  Nav:
+    - '~'
+    - {type: trans}
+    - {type: trans}
+    - Prev Win
+    - Next Win
+    - {type: trans}
+    - PgUp
+    - {t: Bspc, h: Alt+Bspc}
+    - {t: ↑, h: Gui+↑}
+    - {t: Del, h: Alt+Del}
+    - {type: trans}
+    - Bspc
+    - '`'
+    - {t: Ctrl, h: sticky}
+    - {t: Alt, h: sticky}
+    - {t: Gui, h: sticky}
+    - {t: Shift, h: sticky}
+    - {type: trans}
+    - PgDn
+    - {t: ←, h: Gui+←}
+    - {t: ↓, h: Gui+↓}
+    - {t: →, h: Gui+→}
+    - Enter
+    - Enter
+    - _
+    - {type: trans}
+    - {type: trans}
+    - Prev Tab
+    - Next Tab
+    - {type: trans}
+    - {type: trans}
+    - Tab
+    - Gui+-
+    - Gui+=
+    - {type: trans}
+    - '-'
+    - Ctl+Alt+Gui
+    - ''
+    - F24
+    - Ctl+A
+    - KP DIVIDE
+    - Ctl+A
+    - KP MINUS
+    - KP PLUS
+    - {t: Spc, h: Nav, s: Sentence, type: held}
+    - {t: Enter, h: Fn}
+    - ''
+    - Spc
+    - {type: trans}
+    - CANCEL
+  Fn:
+    - '~'
+    - F12
+    - F7
+    - F8
+    - F9
+    - {type: trans}
+    - PSCRN
+    - $$mdi:skip-backward$$
+    - $$mdi:volume-high$$
+    - $$mdi:skip-forward$$
+    - F24
+    - Bspc
+    - '`'
+    - {t: F11, h: Ctrl}
+    - {t: F4, h: Alt}
+    - {t: F5, h: Gui}
+    - {t: F6, h: Shift}
+    - {type: trans}
+    - Sft+PSCRN
+    - Ctl+A
+    - {t: '$$mdi:volume-medium$$', h: Shift}
+    - Ctl+L
+    - F23
+    - Enter
+    - _
+    - F10
+    - F1
+    - F2
+    - F3
+    - {type: trans}
+    - Alt+PSCRN
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - F22
+    - '-'
+    - Ctl+Alt+Gui
+    - ''
+    - F24
+    - Ctl+A
+    - KP DIVIDE
+    - Ctl+A
+    - KP MINUS
+    - KP PLUS
+    - {t: Spc, h: Nav, s: Sentence}
+    - {t: Enter, h: Fn, type: held}
+    - ''
+    - Spc
+    - $$mdi:volume-off$$
+    - $$mdi:play-pause$$
+  Num:
+    - '~'
+    - {type: trans}
+    - '7'
+    - '8'
+    - '9'
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - Bspc
+    - '`'
+    - {t: '0', h: Ctrl}
+    - {t: '4', h: Alt}
+    - {t: '5', h: Gui}
+    - {t: '6', h: Shift}
+    - {type: trans}
+    - {type: trans}
+    - Shift
+    - Gui
+    - Alt
+    - Ctrl
+    - Enter
+    - _
+    - {type: trans}
+    - '1'
+    - '2'
+    - '3'
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - '-'
+    - Ctl+Alt+Gui
+    - ''
+    - F24
+    - Ctl+A
+    - KP DIVIDE
+    - Ctl+A
+    - KP MINUS
+    - KP PLUS
+    - {t: Spc, h: Nav, s: Sentence}
+    - {t: Enter, h: Fn}
+    - ''
+    - Spc
+    - {type: held}
+    - {type: trans}
+  Sys:
+    - '~'
+    - BT 1
+    - BT 2
+    - BT 3
+    - BT 4
+    - BT CLR
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - Bspc
+    - '`'
+    - Game
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - Boot
+    - Boot
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - Enter
+    - _
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - Reset
+    - Reset
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - '-'
+    - Ctl+Alt+Gui
+    - ''
+    - F24
+    - Ctl+A
+    - KP DIVIDE
+    - Ctl+A
+    - KP MINUS
+    - KP PLUS
+    - {t: Spc, h: Nav, s: Sentence}
+    - {t: Enter, h: Fn, type: held}
+    - ''
+    - Spc
+    - {type: held}
+    - {type: trans}
+  Mouse:
+    - '~'
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - PgUp
+    - Mouse ↑
+    - PgDn
+    - {type: trans}
+    - Bspc
+    - '`'
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - Scroll ←
+    - Mouse ←
+    - Mouse ↓
+    - Mouse →
+    - Scroll →
+    - Enter
+    - _
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - {type: trans}
+    - Left Click
+    - Middle Click
+    - Right Click
+    - {type: trans}
+    - '-'
+    - Ctl+Alt+Gui
+    - ''
+    - F24
+    - Ctl+A
+    - KP DIVIDE
+    - Ctl+A
+    - KP MINUS
+    - KP PLUS
+    - {t: Spc, h: Nav, s: Sentence}
+    - {t: Enter, h: Fn}
+    - ''
+    - Spc
+    - Scroll ↑
+    - Scroll ↓
+  Combos: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
+    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
+    '', '', '', '', '', '', '', '', '', '', '', '']
+combos:
+  - p: [2, 3]
+    k: Esc
+    l: [Combos]
+  - p: [3, 4]
+    k: Smart Mouse
+    l: [Combos]
+  - p: [14, 15]
+    k: Tab
+    l: [Combos]
+  - p: [15, 16]
+    k: Leader
+    l: [Combos]
+  - p: [14, 15, 16]
+    k: Shift+Leader
+    l: [Combos]
+    a: top
+    o: 1.35
+  - p: [26, 28]
+    k: Cut
+    l: [Combos]
+    a: bottom
+    o: 0.15
+  - p: [26, 27]
+    k: Copy
+    l: [Combos]
+  - p: [27, 28]
+    k: Paste
+    l: [Combos]
+  - p: [7, 8]
+    k: Bspc
+    l: [Combos]
+  - p: [8, 9]
+    k: Del
+    l: [Combos]
+  - p: [19, 20]
+    k: {t: (, right: <}
+    l: [Combos]
+  - p: [20, 21]
+    k: {t: ), right: '>'}
+    l: [Combos]
+  - p: [19, 20]
+    k: <
+    l: [Combos]
+    hidden: true
+  - p: [20, 21]
+    k: '>'
+    l: [Combos]
+    hidden: true
+  - p: [31, 32]
+    k: {t: '[', right: '{'}
+    l: [Combos]
+  - p: [32, 33]
+    k: {t: ']', right: '}'}
+    l: [Combos]
+  - p: [31, 32]
+    k: '{'
+    l: [Combos]
+    hidden: true
+  - p: [32, 33]
+    k: '}'
+    l: [Combos]
+    hidden: true
+  - p: [2, 14]
+    k: '@'
+    l: [Combos]
+  - p: [3, 15]
+    k: '#'
+    l: [Combos]
+  - p: [4, 16]
+    k: $
+    l: [Combos]
+  - p: [5, 17]
+    k: '%'
+    l: [Combos]
+  - p: [14, 26]
+    k: '`'
+    l: [Combos]
+  - p: [15, 27]
+    k: \
+    l: [Combos]
+  - p: [16, 28]
+    k: '='
+    l: [Combos]
+  - p: [17, 29]
+    k: '~'
+    l: [Combos]
+  - p: [6, 18]
+    k: ^
+    l: [Combos]
+  - p: [7, 19]
+    k: +
+    l: [Combos]
+  - p: [8, 20]
+    k: '*'
+    l: [Combos]
+  - p: [9, 21]
+    k: '&'
+    l: [Combos]
+  - p: [18, 30]
+    k: _
+    l: [Combos]
+  - p: [19, 31]
+    k: '-'
+    l: [Combos]
+  - p: [20, 32]
+    k: /
+    l: [Combos]
+  - p: [21, 33]
+    k: '|'
+    l: [Combos]

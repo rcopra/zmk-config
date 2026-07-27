@@ -53,6 +53,14 @@ clean-all: clean
 clean-nix:
     nix-collect-garbage --delete-old
 
+# parse & plot full hillside d50 keymap (50 keys, real physical layout)
+draw-d50:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    keymap -c "{{ draw }}/config_d50.yaml" parse -z "{{ config }}/hillside_d50.keymap" --virtual-layers Combos >"{{ draw }}/hillside_d50.yaml"
+    yq -Yi '.combos.[].l = ["Combos"]' "{{ draw }}/hillside_d50.yaml"
+    keymap -c "{{ draw }}/config_d50.yaml" draw "{{ draw }}/hillside_d50.yaml" -d "{{ config }}/boards/shields/hillside_d50/hillside_d50-layouts.dtsi" >"{{ draw }}/hillside_d50.svg"
+
 # parse & plot keymap
 draw:
     #!/usr/bin/env bash
