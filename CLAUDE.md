@@ -13,8 +13,8 @@ names). The owner is a fullstack web developer on
 macOS/Linux (no Windows) who types Colemak-DH and expects macOS-style
 shortcuts.
 
-- **Primary board: Hillside D50** (50 keys, split). Prospector dongle support
-  is parked pending an overhaul (see
+- **Primary board: Hillside D50** (50 keys, split, optional Prospector dongle
+  running Carrefinho's status screens — see
   [docs/prospector-dongle.md](docs/prospector-dongle.md)). Entry point:
   `config/hillside_d50.keymap` → `config/base.keymap`.
 - **Legacy/fallback: Temper** (36 keys). Kept building.

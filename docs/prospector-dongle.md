@@ -1,12 +1,11 @@
 # Prospector Dongle
 
-> **Status: parked during the ZMK 4.1 upgrade.** The central dongle targets are
-> removed from `build.yaml`: YADS does not build on Zephyr 4.1 (untyped Kconfig
-> symbol), and is being replaced as part of a Prospector overhaul. The planned
-> direction is [carrefinho/prospector-zmk-module](https://github.com/carrefinho/prospector-zmk-module)
-> `feat/new-status-screens` (ZMK main / Zephyr 4.1) with four status screen
-> layouts — Classic, Field, Operator, Radii. Everything below describes the
-> previous YADS/ZMK 0.3 setup and stays as reference for the overhaul.
+> **Status: overhauled for ZMK 4.1.** The central dongle targets run
+> [carrefinho/prospector-zmk-module](https://github.com/carrefinho/prospector-zmk-module)
+> `feat/new-status-screens` (pinned in `west.yml`) with the `prospector_adapter`
+> shield and four selectable layouts — Classic, Field, Operator, Radii. YADS
+> was retired (it does not build on Zephyr 4.1); the gotchas below keep the
+> parts of its history that still matter.
 >
 > **Legacy/fallback board.** Temper is no longer the daily driver; it is kept
 > as a fallback build. The Hillside D50 uses the same dongle architecture — see
@@ -20,10 +19,11 @@ central; both halves bond to it as peripherals.
 
 - Carrefinho's Prospector PCB, BOM **without** the APDS9960 ambient light sensor
   (fixed brightness used instead).
-- Dongle MCU: **Seeed XIAO nRF52840** (`seeeduino_xiao_ble` board on ZMK v0.3).
-- Firmware module: [janpfischer/zmk-dongle-screen](https://github.com/janpfischer/zmk-dongle-screen)
-  (YADS), `main` branch — pinned to ZMK v0.3 / Zephyr 3.5 alongside the rest of
-  our `west.yml`.
+- Dongle MCU: **Seeed XIAO nRF52840** (`xiao_ble//zmk` on ZMK main / Zephyr 4.1).
+- Firmware module: [carrefinho/prospector-zmk-module](https://github.com/carrefinho/prospector-zmk-module)
+  `feat/new-status-screens`, pinned in `west.yml`; `prospector_adapter` shield
+  provides the ST7789 driver, LVGL status screens, and themes.
+- No ambient light sensor (BOM without APDS9960) → fixed brightness.
 
 ## Architecture
 
@@ -47,7 +47,7 @@ Consequences:
 
 ```bash
 cd zmk-workspace
-just sync                          # pulls YADS into modules/
+just sync                          # pulls the Prospector module into modules/
 just build temper_dongle           # dongle firmware (XIAO)
 just build temper_left_dongle      # left half as peripheral
 just build temper_right_dongle     # right half as peripheral
@@ -77,8 +77,8 @@ overwritten automatically.
 
 ### Reverting to standalone split
 
-1. Flash `temper_left+nice_view_adapter+nice_view-nice_nano_v2.uf2` onto left.
-2. Flash `temper_right+nice_view_adapter+nice_view-nice_nano_v2.uf2` onto right.
+1. Flash `temper_left+nice_view_adapter+nice_view-nice_nano@2.0.0__zmk.uf2` onto left.
+2. Flash `temper_right+nice_view_adapter+nice_view-nice_nano@2.0.0__zmk.uf2` onto right.
 3. The halves re-pair to each other on boot.
 
 ## Gotchas learned the hard way
@@ -94,36 +94,36 @@ profile` warnings), typing doesn't work.
 
 CDC was useful for debugging with `tio`, but it has to come out before the
 firmware is usable. If you need logs again, consider Segger RTT over SWD
-instead, or temporarily disable HID.
+instead, or temporarily disable HID. Not re-verified on ZMK 4.1 — if you
+re-add CDC for debugging, check HID enumeration first.
 
-### `cmake-args:` in `build.yaml` is silently ignored by urob's Justfile
+### `cmake-args:` support
 
-The Justfile parses `[.board, .shield, .snippet, .artifact-name]` and drops
-`cmake-args`. We use real shield variants (`temper_left_dongle`,
-`temper_right_dongle`) to override `ZMK_SPLIT_ROLE_CENTRAL=n` instead of the
-cmake-args shortcut the ZMK docs suggest.
+The Justfile now parses `cmake-args` from `build.yaml` (synced from upstream),
+so the shortcut works. We still use real shield variants
+(`temper_left_dongle`, `temper_right_dongle`) to override
+`ZMK_SPLIT_ROLE_CENTRAL=n` — no reason to revisit a working setup.
 
 ### `temper_common.dtsi` exists because of XIAO vs nice_nano labels
 
 `temper.dtsi` references `&pro_micro_i2c` for the on-board SSD1306. That
-label exists on nice_nano but not on seeeduino_xiao_ble, so including
+label exists on nice_nano but not on xiao_ble, so including
 `temper.dtsi` from the dongle overlay fails at DT parse. The matrix transform
 is extracted into `temper_common.dtsi` so the dongle overlay can pull only
 the transform without dragging in nice_nano-specific nodes.
 
 ### Peripheral position via `col-offset`, not Kconfig
 
-ZMK v0.3 has no `CONFIG_ZMK_SPLIT_BLE_PERIPHERAL_POSITION`. Peripherals
-self-identify through the `col-offset` in their shield's matrix transform —
-left defaults to 0, right overrides to 5. Bond order doesn't affect keymap
-correctness; it only affects which slot shows which battery bar on the dongle
-screen.
+Peripherals self-identify through the `col-offset` in their shield's matrix
+transform — left defaults to 0, right overrides to 5. Bond order doesn't affect
+keymap correctness; it only affects which slot shows which battery bar on the
+dongle screen.
 
 ## File layout
 
 | File | Role |
 |---|---|
-| `config/west.yml` | YADS module added |
+| `config/west.yml` | Prospector module added |
 | `config/temper.conf` | `BT_SMP_ALLOW_UNAUTH_OVERWRITE` for re-pairing |
 | `config/temper_dongle.keymap` | Keymap entry point for the dongle |
 | `config/boards/shields/temper/Kconfig.shield` | Registers dongle + peripheral shields |
@@ -131,20 +131,30 @@ screen.
 | `config/boards/shields/temper/temper_common.dtsi` | Shared matrix transform |
 | `config/boards/shields/temper/temper.dtsi` | nice_nano OLED + kscan, includes common |
 | `config/boards/shields/temper/temper_dongle.overlay` | Mock kscan, includes common only |
-| `config/boards/shields/temper/temper_dongle.conf` | 2 peripherals, no sleep, YADS flags |
+| `config/boards/shields/temper/temper_dongle.conf` | 2 peripherals, no sleep, Prospector flags |
 | `config/boards/shields/temper/temper_left_dongle.overlay` | Left half, peripheral role |
 | `config/boards/shields/temper/temper_right_dongle.overlay` | Right half, peripheral role |
-| `build.yaml` | All 5 dongle-mode targets + 2 settings-reset targets |
+| `build.yaml` | Central dongle + peripheral + settings-reset targets |
 
-## YADS config knobs
+The Hillside D50 mirrors this layout under `config/boards/shields/hillside_d50/`
+with the same `.conf` knobs.
 
-Set in `config/boards/shields/temper/temper_dongle.conf`. Other options live in
-the YADS [README](https://github.com/janpfischer/zmk-dongle-screen) — notable
-ones:
+## Prospector config knobs
 
-- `CONFIG_DONGLE_SCREEN_IDLE_TIMEOUT_S` — 0 = never off (default 600)
-- `CONFIG_DONGLE_SCREEN_BRIGHTNESS_KEYBOARD_CONTROL` — keymap-driven brightness
-  via F22/F23/F24
-- `CONFIG_DONGLE_SCREEN_FLIPPED` — 180° rotate
-- `CONFIG_DONGLE_SCREEN_{WPM,MODIFIER,LAYER,OUTPUT,BATTERY}_ACTIVE` — toggle
-  individual widgets
+Set in `config/boards/shields/{temper,hillside_d50}/*_dongle.conf`; the module
+[README](https://github.com/carrefinho/prospector-zmk-module/tree/feat/new-status-screens)
+has the full list. Notable ones:
+
+- `CONFIG_PROSPECTOR_STATUS_SCREEN_{CLASSIC,FIELD,OPERATOR,RADII}` — layout
+  choice; Classic is the default
+- `CONFIG_PROSPECTOR_ROTATE_DISPLAY_180` — 180° rotate (set: `y`)
+- `CONFIG_PROSPECTOR_USE_AMBIENT_LIGHT_SENSOR` — set `n` on this BOM
+- `CONFIG_PROSPECTOR_FIXED_BRIGHTNESS` — 1–100 when the sensor is off
+- `CONFIG_PROSPECTOR_SHOW_MODIFIERS`,
+  `CONFIG_PROSPECTOR_SHOW_INACTIVE_MODIFIERS`, `CONFIG_PROSPECTOR_MODIFIER_ORDER`
+  (`GACS`), `CONFIG_PROSPECTOR_MODIFIER_OS_{GENERIC,WINDOWS,MAC}` (set: `MAC`)
+- `CONFIG_PROSPECTOR_LAYER_NAME_UPPERCASE`
+- If the build reports a RAM overflow: `CONFIG_LV_Z_VDB_SIZE=25`
+
+The new module has no screen-idle timeout and no keyboard-controlled
+brightness, so the reserved F22–F24 keys are currently unused by the dongle.

@@ -38,13 +38,12 @@ treat the YAML + source as authoritative and update this document.
 | Mode | Boards | Targets |
 | --- | --- | --- |
 | Standalone split | 2× nice_nano@2.0.0//zmk | `hillside_d50_left`, `hillside_d50_right` |
-| Dongle split (parked) | XIAO BLE central + 2× nice_nano peripherals | `hillside_d50_left_dongle`, `hillside_d50_right_dongle` |
+| Dongle split | XIAO BLE central + 2× nice_nano peripherals | `hillside_d50_dongle`, `hillside_d50_left_dongle`, `hillside_d50_right_dongle` |
 
-The dongle runs the keymap as BLE central; both halves bond to it. The central
-dongle targets are parked while the Prospector dongle is overhauled for ZMK
-4.1: YADS does not build there, and is being replaced by Carrefinho's
-`prospector-zmk-module` status screens. The history (and the half-side
-peripheral targets) are documented in
+The dongle runs the keymap as BLE central; both halves bond to it. The
+Prospector screen is driven by Carrefinho's `prospector-zmk-module`
+(`feat/new-status-screens`, four layouts), with settings in
+`hillside_d50_dongle.conf`. See
 [prospector-dongle.md](prospector-dongle.md).
 
 ## Physical layout
@@ -282,7 +281,7 @@ Option as a pure modifier, and Ghostty passing Option through as Alt. See
 ```bash
 just draw-d50                    # map + positions card into draw/
 just layout-card                 # positions card only (alias/pos/RC/Base)
-just build hillside              # all D50 targets (dongle parked)
+just build hillside              # all D50 targets
 just list                        # all build targets
 ```
 

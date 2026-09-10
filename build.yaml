@@ -17,7 +17,9 @@ include:
     shield: temper_left nice_view_adapter nice_view
   - board: nice_nano@2.0.0//zmk
     shield: temper_right nice_view_adapter nice_view
-  # Central dongle targets parked until the Prospector overhaul (ZMK 4.1).
+  - board: xiao_ble//zmk
+    shield: temper_dongle prospector_adapter
+    artifact-name: temper_dongle
 
   - board: nice_nano@2.0.0//zmk
     shield: temper_left_dongle nice_view_adapter nice_view
@@ -30,7 +32,9 @@ include:
     shield: hillside_d50_left nice_view
   - board: nice_nano@2.0.0//zmk
     shield: hillside_d50_right nice_view
-  # Hillside D50 central dongle parked until the Prospector overhaul.
+  - board: xiao_ble//zmk
+    shield: hillside_d50_dongle prospector_adapter
+    artifact-name: hillside_d50_dongle
 
   - board: nice_nano@2.0.0//zmk
     shield: hillside_d50_left_dongle nice_view

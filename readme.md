@@ -2,7 +2,7 @@
 
 Personal [ZMK firmware](https://github.com/zmkfirmware/zmk/) configuration based on [urob's zmk-config](https://github.com/urob/zmk-config). See urob's repository for detailed documentation on the keymap features, homerow mods configuration, and local build environment setup.
 
-Daily driver: **Hillside D50** — a 50-key split dactyl. Prospector dongle support is parked pending an overhaul (ZMK 4.1 + new status screens). Legacy fallback: **Temper** (36 keys). The remaining keymaps in `config/` (glove80, corneish_zen, planck_rev6) are historical samples inherited from upstream.
+Daily driver: **Hillside D50** — a 50-key split dactyl with an optional Prospector dongle (Carrefinho status screens: Classic/Field/Operator/Radii). Legacy fallback: **Temper** (36 keys). The remaining keymaps in `config/` (glove80, corneish_zen, planck_rev6) are historical samples inherited from upstream.
 
 ## Hillside D50
 
@@ -19,7 +19,7 @@ Generated references (`just draw-d50`, CI-checked):
 
 This fork is customized for:
 
-- **Hillside D50 (primary)** - 50-key split dactyl: 34-key core plus 16 extras, Hyper-3 window-manager keys, tmux prefix thumbs, and a shared physical key vocabulary
+- **Hillside D50 (primary)** - 50-key split dactyl: 34-key core plus 16 extras, optional Prospector dongle with status screens, Hyper-3 window-manager keys, tmux prefix thumbs, and a shared physical key vocabulary
 - **Temper keyboard** - legacy 36-key fallback with nice!view displays
 - **macOS shortcuts** - Navigation cluster uses macOS-style shortcuts (Cmd+arrows for line/document navigation, Option+Backspace/Delete for word deletion)
 - **Unicode input** - Configured for macOS unicode input mode

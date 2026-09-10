@@ -27,6 +27,8 @@ manifest:
       url-base: https://github.com/urob
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
+    - name: carrefinho
+      url-base: https://github.com/carrefinho
 
   projects:
     - name: zmk
@@ -54,8 +56,12 @@ manifest:
       path: modules/zmk/unicode
       revision: 5f458b6f1fd8ca83f4aba793c2a64916522507e9 # main (2026-08-31)
 
-    # Dongle screen module is parked until the Prospector overhaul; YADS does
-    # not build on Zephyr 4.1 (untyped Kconfig symbol) and is being replaced.
+    # Prospector dongle status screens (ZMK main / Zephyr 4.1 branch,
+    # replacing YADS). Screens: Classic, Field, Operator, Radii.
+    - name: prospector-zmk-module
+      remote: carrefinho
+      revision: ed98221f3b52b7066dbb10ba3af8a29150b93a5a # feat/new-status-screens
+      path: modules/zmk/prospector
 
     # Avoid downloading GBs of unused Zephyr modules. Remove this section to
     # restore the default (needed for less common hardware).
