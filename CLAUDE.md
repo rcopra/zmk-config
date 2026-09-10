@@ -6,16 +6,18 @@ map is in [docs/d50-map.md](docs/d50-map.md). Read those before editing.
 
 ## What this is
 
-A personal [ZMK](https://zmk.dev) v0.3 configuration based on
+A personal [ZMK](https://zmk.dev) configuration based on
 [urob's zmk-config](https://github.com/urob/zmk-config), pinned through
-`config/west.yml` and `flake.lock`. The owner is a fullstack web developer on
+`config/west.yml` and `flake.lock` (ZMK 0.4-era main, Zephyr 4.1, HWMv2 board
+names). The owner is a fullstack web developer on
 macOS/Linux (no Windows) who types Colemak-DH and expects macOS-style
 shortcuts.
 
-- **Primary board: Hillside D50** (50 keys, split, optional YADS dongle).
-  Entry point: `config/hillside_d50.keymap` → `config/base.keymap`.
-- **Legacy/fallback: Temper** (36 keys + dongle). Kept building, documented in
-  [docs/prospector-dongle.md](docs/prospector-dongle.md).
+- **Primary board: Hillside D50** (50 keys, split). Prospector dongle support
+  is parked pending an overhaul (see
+  [docs/prospector-dongle.md](docs/prospector-dongle.md)). Entry point:
+  `config/hillside_d50.keymap` → `config/base.keymap`.
+- **Legacy/fallback: Temper** (36 keys). Kept building.
 - Other keymaps (`glove80`, `corneish_zen`, `planck_rev6`) are historical
   samples inherited from upstream; do not treat them as current.
 
@@ -56,7 +58,7 @@ just clean                       # remove build + firmware artifacts
 ```
 
 Run inside `nix develop` (or let `direnv` load it). CI mirrors `just init`,
-`just build planck`, `just draw`, and `just draw-d50`.
+`just build settings_reset`, `just draw`, and `just draw-d50`.
 
 ## Cross-repo link
 

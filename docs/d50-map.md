@@ -37,12 +37,14 @@ treat the YAML + source as authoritative and update this document.
 
 | Mode | Boards | Targets |
 | --- | --- | --- |
-| Standalone split | 2× nice_nano_v2 | `hillside_d50_left`, `hillside_d50_right` |
-| Dongle split | XIAO BLE central + 2× nice_nano peripherals | `hillside_d50_dongle`, `hillside_d50_left_dongle`, `hillside_d50_right_dongle` |
+| Standalone split | 2× nice_nano@2.0.0//zmk | `hillside_d50_left`, `hillside_d50_right` |
+| Dongle split (parked) | XIAO BLE central + 2× nice_nano peripherals | `hillside_d50_left_dongle`, `hillside_d50_right_dongle` |
 
-The dongle runs the keymap as BLE central; both halves bond to it. Screen
-settings live in `config/boards/shields/hillside_d50/hillside_d50_dongle.conf`
-(YADS). The same architecture is documented for Temper in
+The dongle runs the keymap as BLE central; both halves bond to it. The central
+dongle targets are parked while the Prospector dongle is overhauled for ZMK
+4.1: YADS does not build there, and is being replaced by Carrefinho's
+`prospector-zmk-module` status screens. The history (and the half-side
+peripheral targets) are documented in
 [prospector-dongle.md](prospector-dongle.md).
 
 ## Physical layout
@@ -260,7 +262,7 @@ The cross-tool contract; handler configs live in the dotfiles repo.
 | --- | --- | --- |
 | Raised pair keys (`X_LR`/`X_RR`) | Hyper-3 = Ctrl+Opt+Cmd | OmniWM `focus.*` on N/E/U/I; add Shift for 4-mod `Hyper+` `move.*` |
 | Upper thumbs (`X_LU` 2 / `X_RU` 2) | Ctrl+A | tmux prefix |
-| Upper thumb `X_LU` 1 | F24 | YADS dongle screen (F22–F24 reserved) |
+| Upper thumb `X_LU` 1 | F24 | Prospector dongle screen (F22–F24 reserved) |
 | Upper thumb `X_RU` 1 | KP_DIVIDE | no in-repo consumer; reuse candidate |
 | NAV arrows / Backspace / Delete | hold = Cmd+arrow / Opt+BSPC / Opt+DEL | macOS text navigation |
 | NAV `A R S T` | sticky Ctrl/Alt/Cmd/Shift | any app |
@@ -280,13 +282,12 @@ Option as a pure modifier, and Ghostty passing Option through as Alt. See
 ```bash
 just draw-d50                    # map + positions card into draw/
 just layout-card                 # positions card only (alias/pos/RC/Base)
-just build hillside              # all D50 targets
-just build hillside_d50_dongle   # dongle firmware only
+just build hillside              # all D50 targets (dongle parked)
 just list                        # all build targets
 ```
 
-CI runs `just build planck`, `just draw`, and `just draw-d50`, then fails if
-regeneration changes tracked draw artifacts.
+CI runs `just build settings_reset`, `just draw`, and `just draw-d50`, then
+fails if regeneration changes tracked draw artifacts.
 
 ## Related files
 

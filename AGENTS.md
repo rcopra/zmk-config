@@ -49,7 +49,7 @@ Run from repo root. Use `nix develop` when tools are unavailable on host.
 ### Test commands
 
 - `just test <testpath>` - run one test case from a test directory.
-  - This recipe builds `native_posix_64` firmware for that test config and diffs logs.
+  - This recipe builds `native_sim//zmk_test_mock` firmware for that test config and diffs logs.
   - `testpath` must point to a directory containing expected snapshot files.
 - `just test <testpath> --verbose` - print reduced event log.
 - `just test <testpath> --auto-accept` - update snapshot from latest output.
@@ -68,7 +68,7 @@ Run from repo root. Use `nix develop` when tools are unavailable on host.
 ### CI parity checks
 
 - `nix develop --command just init`
-- `nix develop --command just build planck`
+- `nix develop --command just build settings_reset`
 - `nix develop --command just draw`
 - `nix develop --command just draw-d50`
 

@@ -8,44 +8,40 @@
 # shield: [ "corne_left", "corne_right" ]
 # include:
 #   - board: bdn9_rev2
-#   - board: nice_nano_v2
+#   - board: nice_nano@2.0.0//zmk
 #     shield: reviung41
 #
 ---
 include:
-  - board: nice_nano_v2
+  - board: nice_nano@2.0.0//zmk
     shield: temper_left nice_view_adapter nice_view
-  - board: nice_nano_v2
+  - board: nice_nano@2.0.0//zmk
     shield: temper_right nice_view_adapter nice_view
-  - board: seeeduino_xiao_ble
-    shield: temper_dongle dongle_screen
-    artifact-name: temper_dongle
+  # Central dongle targets parked until the Prospector overhaul (ZMK 4.1).
 
-  - board: nice_nano_v2
+  - board: nice_nano@2.0.0//zmk
     shield: temper_left_dongle nice_view_adapter nice_view
     artifact-name: temper_left_dongle
-  - board: nice_nano_v2
+  - board: nice_nano@2.0.0//zmk
     shield: temper_right_dongle nice_view_adapter nice_view
     artifact-name: temper_right_dongle
 
-  - board: nice_nano_v2
+  - board: nice_nano@2.0.0//zmk
     shield: hillside_d50_left nice_view
-  - board: nice_nano_v2
+  - board: nice_nano@2.0.0//zmk
     shield: hillside_d50_right nice_view
-  - board: seeeduino_xiao_ble
-    shield: hillside_d50_dongle dongle_screen
-    artifact-name: hillside_d50_dongle
+  # Hillside D50 central dongle parked until the Prospector overhaul.
 
-  - board: nice_nano_v2
+  - board: nice_nano@2.0.0//zmk
     shield: hillside_d50_left_dongle nice_view
     artifact-name: hillside_d50_left_dongle
-  - board: nice_nano_v2
+  - board: nice_nano@2.0.0//zmk
     shield: hillside_d50_right_dongle nice_view
     artifact-name: hillside_d50_right_dongle
 
-  - board: nice_nano_v2
+  - board: nice_nano@2.0.0//zmk
     shield: settings_reset
     artifact-name: settings_reset_nice_nano_v2
-  - board: seeeduino_xiao_ble
+  - board: xiao_ble//zmk
     shield: settings_reset
     artifact-name: settings_reset_xiao_ble

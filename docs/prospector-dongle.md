@@ -1,5 +1,13 @@
 # Prospector Dongle
 
+> **Status: parked during the ZMK 4.1 upgrade.** The central dongle targets are
+> removed from `build.yaml`: YADS does not build on Zephyr 4.1 (untyped Kconfig
+> symbol), and is being replaced as part of a Prospector overhaul. The planned
+> direction is [carrefinho/prospector-zmk-module](https://github.com/carrefinho/prospector-zmk-module)
+> `feat/new-status-screens` (ZMK main / Zephyr 4.1) with four status screen
+> layouts — Classic, Field, Operator, Radii. Everything below describes the
+> previous YADS/ZMK 0.3 setup and stays as reference for the overhaul.
+>
 > **Legacy/fallback board.** Temper is no longer the daily driver; it is kept
 > as a fallback build. The Hillside D50 uses the same dongle architecture — see
 > [d50-map.md](d50-map.md) for the current board.
