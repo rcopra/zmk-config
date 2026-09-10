@@ -76,7 +76,9 @@ These mirror `.github/workflows/test-build-env.yml`.
 
 ## Lint/Format Reality
 
-- No dedicated lint target exists in `Justfile`.
+- `just format <file|dir>` runs `dts-format` from the Nix dev shell over
+  devicetree files. It does not reformat C-preprocessor macros, so the
+  hand-aligned keymap grids are safe; plain devicetree will be normalized.
 - No repo-local ESLint/Ruff/etc. is configured.
 - Formatting signals present:
   - `.prettierrc` for prose wrapping (`proseWrap: always`, `editorconfig: true`).

@@ -118,6 +118,11 @@ init:
 sync:
     west update --fetch-opt=--filter=blob:none
 
+# bump west manifest and re-sync the workspace
+[group('workspace')]
+bump-west: && sync
+    pin-west bump
+
 # bump nix toolchain (flake.lock)
 [group('workspace')]
 bump-nix:
@@ -137,6 +142,33 @@ clean-all: clean
 [group('cleanup')]
 nix-gc:
     nix-collect-garbage --delete-old
+
+# format devicetree files, or a single directory recursively
+[group('dev')]
+[no-cd]
+format *paths:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    paths=({{ paths }})
+
+    if [[ ${#paths[@]} -eq 0 ]]; then
+        echo "Usage: just format <file>... | <dir>" >&2
+        exit 1
+    fi
+
+    for path in "${paths[@]}"; do
+        if [[ -d "$path" ]]; then
+            if [[ ${#paths[@]} -gt 1 ]]; then
+                echo "A directory must be the only argument. Aborting..." >&2
+                exit 1
+            fi
+            cd "$path"
+            dts-format --fix
+            exit 0
+        fi
+    done
+
+    dts-format --fix "${paths[@]}"
 
 # run test suites (--auto-accept updates the snapshot)
 [group('dev')]

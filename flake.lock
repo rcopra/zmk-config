@@ -37,6 +37,22 @@
         "type": "github"
       }
     },
+    "pin-west": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788659424,
+        "narHash": "sha256-g/z200neMDim7oYeH2T33PO7TqrgA/B7RK7d57Vtk/E=",
+        "owner": "urob",
+        "repo": "pin-west",
+        "rev": "beb8e51a464372bf265e864d0e2a4baec7a2bbe8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "urob",
+        "repo": "pin-west",
+        "type": "github"
+      }
+    },
     "pyproject-nix": {
       "inputs": {
         "nixpkgs": [
@@ -61,6 +77,7 @@
     "root": {
       "inputs": {
         "nixpkgs": "nixpkgs",
+        "pin-west": "pin-west",
         "zephyr": "zephyr",
         "zephyr-nix": "zephyr-nix"
       }
