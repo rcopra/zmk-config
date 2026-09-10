@@ -18,7 +18,8 @@
   };
 
   outputs = inputs @ { nixpkgs, zephyr-nix, ... }: let
-    systems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
+    # x86_64-darwin is omitted: nixpkgs 26.11 dropped support for it.
+    systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin"];
     forAllSystems = nixpkgs.lib.genAttrs systems;
   in {
     devShells = forAllSystems (
