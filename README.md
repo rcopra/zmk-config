@@ -29,12 +29,15 @@ This fork is customized for:
 
 ![Hillside D50 keymap](draw/hillside_d50.svg)
 
-The legacy 34-key base keymap shared with Temper:
+The legacy 34-key base keymap shared with Temper. Condensed overview with Nav/Fn/Num/Sys legends;
+the Game and Mouse layers are omitted here (see the per-layer breakdown below):
 
-![34-key base keymap](draw/base.svg)
+![34-key base keymap overview](draw/overview.svg)
+
+![34-key base keymap per-layer breakdown](draw/base.svg)
 
 ## Building
 
 Firmware builds automatically via GitHub Actions on push. See [build.yaml](build.yaml) for configured targets.
 
-For local builds, see the [local build environment](https://github.com/urob/zmk-config#local-build-environment) instructions in urob's repo. With the Nix dev shell active (`direnv allow`; `just init` on first checkout), `just list` shows build targets and `just build hillside` builds the D50 firmware.
+For local builds, see the [local build environment](docs/build-env.md). With the Nix dev shell active (`direnv allow`; `just init` on first checkout), `just list` shows build targets and `just build hillside` builds the D50 firmware.
