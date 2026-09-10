@@ -4,13 +4,12 @@
  * reported by the peripherals. Anything that depends on pro_micro (real
  * kscan, board-level peripherals) lives in hillside_d50.dtsi instead.
  *
- * We deliberately use the older chosen `zmk,kscan` + `zmk,matrix_transform`
- * approach (mirroring temper's working dongle setup) instead of
- * zmk,physical-layout — Studio support isn't needed and physical-layout
- * has surprised us in split BLE mode.
+ * The physical layout is included here so every part sees the same single
+ * layout, in the same order.
  */
 
 #include <dt-bindings/zmk/matrix_transform.h>
+#include "hillside_d50-layouts.dtsi"
 
 / {
     default_transform: keymap_transform_0 {

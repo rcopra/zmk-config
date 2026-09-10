@@ -1,6 +1,6 @@
-/* Full nice_nano build of the Hillside D50: shared matrix transform from
- * common, plus the GPIO matrix kscan for real key scanning. Old-style chosen
- * (zmk,kscan + zmk,matrix_transform) — see common dtsi for rationale.
+/* Full nice_nano build of the Hillside D50: shared matrix transform and
+ * physical layout from common, plus the GPIO matrix kscan for real key
+ * scanning.
  */
 
 #include "hillside_d50_common.dtsi"
@@ -8,7 +8,7 @@
 / {
     chosen {
         zmk,kscan = &kscan0;
-        zmk,matrix_transform = &default_transform;
+        zmk,physical-layout = &physical_layout0;
     };
 
     kscan0: kscan {

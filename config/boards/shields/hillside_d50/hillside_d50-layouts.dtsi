@@ -1,26 +1,24 @@
 #include <physical_layouts.dtsi>
 
-/* Physical layout definition.
-
-Referenced in the main dtsi file, where the kscan and transforms are defined.
-
-Keys property is needed for Studio support.
-
-Every physical layout needs a matrix transform, and optionally a kscan.
-
-By convention,
-kscan and transform are assigned to the physical layout in the file where the
-    matrix transform and kscan are defined.
-Except it seems when a key property is added, when it makes sense to
-put it all together here.
-
-*/
+/* Physical layout definition, shared by every Hillside D50 build.
+ *
+ * Included from hillside_d50_common.dtsi for firmware builds; `just draw-d50`
+ * also passes this file to keymap-drawer for the physical position map.
+ *
+ * The kscan property is deliberately omitted, so each part falls back to its
+ * chosen zmk,kscan: the real matrix on the halves, the mock kscan on the
+ * dongle.
+ *
+ * Keep this the board's only layout: split peripherals apply the central's
+ * layout index, so every part must enumerate layouts in the same order.
+ *
+ * keys is needed for Studio support.
+ */
 
 / {
     physical_layout0: physical_layout_0 {
         compatible = "zmk,physical-layout";
         display-name = "Default Layout";
-        kscan = <&kscan0>; // Label of the kscan node this layout uses
         transform = <&default_transform>; // Label of the matrix transform this layout uses
         keys  //                     w   h    x    y     rot    rx    ry
             = <&key_physical_attrs 100 100    0    0       0     0     0>
