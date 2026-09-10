@@ -8,3 +8,4 @@ zmk
 draw/base.yaml
 moonlander-plans
 zmk-workspace
+__pycache__/

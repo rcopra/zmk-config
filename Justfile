@@ -60,6 +60,13 @@ draw-d50:
     keymap -c "{{ draw }}/config_d50.yaml" parse -z "{{ config }}/hillside_d50.keymap" --virtual-layers Combos >"{{ draw }}/hillside_d50.yaml"
     yq -Yi '.combos.[].l = ["Combos"]' "{{ draw }}/hillside_d50.yaml"
     keymap -c "{{ draw }}/config_d50.yaml" draw "{{ draw }}/hillside_d50.yaml" -d "{{ config }}/boards/shields/hillside_d50/hillside_d50-layouts.dtsi" >"{{ draw }}/hillside_d50.svg"
+    just layout-card
+
+# regenerate the physical position card (aliases, positions, RC, Base bindings)
+layout-card:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    python3 "{{ justfile_directory() }}/scripts/layout_card.py"
 
 # parse & plot keymap
 draw:

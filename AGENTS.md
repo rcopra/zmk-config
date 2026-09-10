@@ -39,7 +39,9 @@ Run from repo root. Use `nix develop` when tools are unavailable on host.
 ### Draw/visualization
 
 - `just draw` - regenerate the 34-key base artifacts in `draw/`.
-- `just draw-d50` - regenerate `draw/hillside_d50.yaml` + `.svg` (50-key D50).
+- `just draw-d50` - regenerate `draw/hillside_d50.yaml` + `.svg` (50-key D50),
+  and the physical position card `draw/hillside_d50-positions.{md,svg}`.
+- `just layout-card` - regenerate only the position card (called by `draw-d50`).
 - CI enforces that tracked draw artifacts match a fresh regeneration.
 
 ### Test commands
@@ -88,6 +90,12 @@ These are critical and non-optional for this repository.
 3. Keep `#include <zmk-helpers/helper.h>` after `#include <behaviors.dtsi>`.
 4. Use key-position labels (`LT*`, `LM*`, `LB*`, `LH*`, `RT*`, `RM*`, `RB*`, `RH*`), never raw integers for combos.
 5. Do not retune homerow-mod timing unless explicitly requested.
+6. Speak about keys with the shared physical aliases (`L_COL2_TOP`,
+   `R_THUMB_LOWER_MID`, ...) defined in `config/key-labels/hillside_d50.h`, and
+   restate the target as alias + position (e.g. `L_COL3_TOP`, pos 2) before
+   editing a binding. `draw/hillside_d50-positions.md` is the exhaustive card.
+7. Keep `LT*`/`X_*` labels and 0-49 positions as the machine-facing names in
+   combos, draw tooling, and CI; aliases are additive, not a replacement.
 
 ## Imports and Include Ordering
 
@@ -142,7 +150,11 @@ These are critical and non-optional for this repository.
 - `docs/d50-map.md` - canonical map of the Hillside D50 keymap (layers, combos, behaviors, emitted chords).
 - `config/base.keymap` - core layers, behaviors, macros.
 - `config/hillside_d50.keymap` - D50 layer wrapper and the 16 extra keys (primary board).
-- `config/key-labels/hillside_d50.h` - D50 position labels used by combos.
+- `config/key-labels/hillside_d50.h` - D50 position labels and the shared
+  physical aliases used to talk about keys with the owner.
+- `scripts/layout_card.py` - generates `draw/hillside_d50-positions.{md,svg}`.
+- `scripts/photo_card.py` - annotates the board photo (local Pillow tool,
+  output `docs/hillside50dactyl-annotated.png`).
 - `config/boards/shields/hillside_d50/` - D50 shield, dongle, and physical layout definitions.
 - `config/combos.dtsi` - combo definitions.
 - `config/leader.dtsi` - leader sequences.
