@@ -24,7 +24,8 @@ Run from repo root. Use `nix develop` when tools are unavailable on host.
 
 - `direnv allow` - activate pinned Nix dev environment automatically.
 - `just init` - initialize west workspace (`.west`, `zmk`, `zephyr`, modules).
-- `just update` - update west dependencies from pinned manifest.
+- `just sync` - synchronize west dependencies from the pinned manifest.
+- `just bump-nix` - bump the Nix toolchain (`flake.lock`).
 
 ### Build commands
 
@@ -33,6 +34,7 @@ Run from repo root. Use `nix develop` when tools are unavailable on host.
 - `just build temper` - build the legacy Temper targets.
 - `just build all` - build every target in `build.yaml`.
 - `just build <expr>` - build targets matching expression.
+- `just flash <expr>` - build and flash targets matching expression.
 - `just clean` - remove `.build` and `firmware` artifacts.
 - `just clean-all` - remove all generated west/zmk workspace content too.
 

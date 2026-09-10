@@ -39,7 +39,7 @@ Consequences:
 
 ```bash
 cd zmk-workspace
-just update                        # pulls YADS into modules/
+just sync                          # pulls YADS into modules/
 just build temper_dongle           # dongle firmware (XIAO)
 just build temper_left_dongle      # left half as peripheral
 just build temper_right_dongle     # right half as peripheral
