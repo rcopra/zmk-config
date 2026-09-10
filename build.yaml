@@ -35,6 +35,14 @@ include:
   - board: xiao_ble//zmk
     shield: hillside_d50_dongle prospector_adapter
     artifact-name: hillside_d50_dongle
+    cmake-args: -DCONFIG_ZMK_PM_SOFT_OFF=n -DCONFIG_PM_DEVICE=n
+
+  - board: xiao_ble//zmk
+    shield: hillside_d50_dongle prospector_adapter
+    artifact-name: hillside_d50_dongle_vaporwave
+    cmake-args: >-
+      -DCONFIG_PROSPECTOR_STATUS_SCREEN_VAPORWAVE=y
+      -DCONFIG_ZMK_PM_SOFT_OFF=n -DCONFIG_PM_DEVICE=n
 
   - board: nice_nano@2.0.0//zmk
     shield: hillside_d50_left_dongle nice_view

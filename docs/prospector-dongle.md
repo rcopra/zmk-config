@@ -1,10 +1,12 @@
 # Prospector Dongle
 
 > **Status: overhauled for ZMK 4.1.** The central dongle targets run
+> [rcopra/prospector-zmk-module](https://github.com/rcopra/prospector-zmk-module)
+> branch `vaporwave` (a fork of
 > [carrefinho/prospector-zmk-module](https://github.com/carrefinho/prospector-zmk-module)
-> `feat/new-status-screens` (pinned in `west.yml`) with the `prospector_adapter`
-> shield and four selectable layouts — Classic, Field, Operator, Radii. YADS
-> was retired (it does not build on Zephyr 4.1); the gotchas below keep the
+> `feat/new-status-screens`, pinned in `west.yml`) with the `prospector_adapter`
+> shield and five selectable layouts — Classic, Field, Operator, Radii, Vaporwave.
+> YADS was retired (it does not build on Zephyr 4.1); the gotchas below keep the
 > parts of its history that still matter.
 >
 > **Legacy/fallback board.** Temper is no longer the daily driver; it is kept
@@ -145,8 +147,11 @@ Set in `config/boards/shields/{temper,hillside_d50}/*_dongle.conf`; the module
 [README](https://github.com/carrefinho/prospector-zmk-module/tree/feat/new-status-screens)
 has the full list. Notable ones:
 
-- `CONFIG_PROSPECTOR_STATUS_SCREEN_{CLASSIC,FIELD,OPERATOR,RADII}` — layout
-  choice; Classic is the default
+- `CONFIG_PROSPECTOR_STATUS_SCREEN_{CLASSIC,FIELD,OPERATOR,RADII,VAPORWAVE}` —
+  layout choice; Classic is the default. Vaporwave is selected by the
+  `hillside_d50_dongle_vaporwave` target in `build.yaml` via `cmake-args`
+  (Vaporwave is only defined in the fork); the standard dongle target stays on
+  Classic unless one option here is uncommented.
 - `CONFIG_PROSPECTOR_ROTATE_DISPLAY_180` — 180° rotate (set: `y`)
 - `CONFIG_PROSPECTOR_USE_AMBIENT_LIGHT_SENSOR` — set `n` on this BOM
 - `CONFIG_PROSPECTOR_FIXED_BRIGHTNESS` — 1–100 when the sensor is off

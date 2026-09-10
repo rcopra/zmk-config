@@ -29,6 +29,8 @@ manifest:
       url-base: https://github.com/zmkfirmware
     - name: carrefinho
       url-base: https://github.com/carrefinho
+    - name: rcopra
+      url-base: https://github.com/rcopra
 
   projects:
     - name: zmk
@@ -57,10 +59,11 @@ manifest:
       revision: 5f458b6f1fd8ca83f4aba793c2a64916522507e9 # main (2026-08-31)
 
     # Prospector dongle status screens (ZMK main / Zephyr 4.1 branch,
-    # replacing YADS). Screens: Classic, Field, Operator, Radii.
+    # replacing YADS). Screens: Classic, Field, Operator, Radii + Vaporwave
+    # (rcopra fork, branch vaporwave).
     - name: prospector-zmk-module
-      remote: carrefinho
-      revision: ed98221f3b52b7066dbb10ba3af8a29150b93a5a # feat/new-status-screens
+      remote: rcopra
+      revision: b8ef89cc00cf149891128b90fd06e9362ef91f6d # vaporwave (2026-09-10, outrun palette)
       path: modules/zmk/prospector
 
     # Avoid downloading GBs of unused Zephyr modules. Remove this section to
@@ -74,8 +77,8 @@ manifest:
           - cmsis
           - hal_nordic
           - hal_rpi_pico
-          - hal_stm32  # imported independently by ZMK
-          - lvgl  # imported independently by ZMK
+          - hal_stm32 # imported independently by ZMK
+          - lvgl # imported independently by ZMK
           - mbedtls
           - tinycrypt
 
