@@ -31,7 +31,7 @@
             &kp LC(LA(LGUI)) &none  &kp F24 TMUX_PRE      &kp KP_DIVIDE TMUX_PRE        &none &kp LC(LA(LGUI)) \
         /*  ╰─────┴─────╯         ╰─────┴─────╯           ╰─────┴─────╯         ╰─────┴─────╯ */          \
                                                                                                           \
-        /*        L thumb bottom (in,mid,out)                   R thumb bottom (out,mid,in) */            \
+        /*        L thumb bottom (out,mid,in)                   R thumb bottom (in,mid,out) */            \
         /*        ╭─────────┬─────────┬─────────╮            ╭─────────┬─────────┬─────────╮ */           \
                  &lt_spc NAV 0  &lt FN RET  &none                 &kp    SPACE       RH                   \
         /*        ╰─────────┴─────────┴─────────╯            ╰─────────┴─────────┴─────────╯ */           \

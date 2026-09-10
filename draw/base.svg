@@ -654,8 +654,9 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <use href="#mdi:skip-forward" xlink:href="#mdi:skip-forward" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:skip-forward"/>
 </g>
-<g transform="translate(644, 81)" class="key trans keypos-9">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
+<g transform="translate(644, 81)" class="key keypos-9">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
+<text x="0" y="0" class="key tap">F24</text>
 </g>
 <g transform="translate(28, 137)" class="key keypos-10">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -699,8 +700,9 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">Ctl+L</text>
 </g>
-<g transform="translate(644, 137)" class="key trans keypos-19">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
+<g transform="translate(644, 137)" class="key keypos-19">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
+<text x="0" y="0" class="key tap">F23</text>
 </g>
 <g transform="translate(28, 193)" class="key keypos-20">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -736,8 +738,9 @@ path.combo { stroke: #7f7f7f; }
 <g transform="translate(588, 158)" class="key trans keypos-28">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
 </g>
-<g transform="translate(644, 193)" class="key trans keypos-29">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
+<g transform="translate(644, 193)" class="key keypos-29">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
+<text x="0" y="0" class="key tap">F22</text>
 </g>
 <g transform="translate(221, 221) rotate(15.0)" class="key trans keypos-30">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>

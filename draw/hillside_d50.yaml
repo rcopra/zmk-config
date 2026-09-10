@@ -37,14 +37,14 @@ layers:
     - {t: ., s: ':'}
     - {t: '?', s: '!'}
     - '-'
-    - Ctl+Alt+Gui
+    - Hyper-3
     - ''
     - F24
     - Ctl+A
     - KP DIVIDE
     - Ctl+A
     - ''
-    - Ctl+Alt+Gui
+    - Hyper-3
     - {t: Spc, h: Nav, s: Sentence}
     - {t: Enter, h: Fn}
     - ''
@@ -88,14 +88,14 @@ layers:
     - .
     - /
     - '-'
-    - Ctl+Alt+Gui
+    - Hyper-3
     - ''
     - F24
     - Ctl+A
     - KP DIVIDE
     - Ctl+A
     - ''
-    - Ctl+Alt+Gui
+    - Hyper-3
     - {t: Spc, h: Nav, s: Sentence}
     - {t: Enter, h: Fn}
     - ''
@@ -139,14 +139,14 @@ layers:
     - Gui+=
     - {type: trans}
     - '-'
-    - Ctl+Alt+Gui
+    - Hyper-3
     - ''
     - F24
     - Ctl+A
     - KP DIVIDE
     - Ctl+A
     - ''
-    - Ctl+Alt+Gui
+    - Hyper-3
     - {t: Spc, h: Nav, s: Sentence, type: held}
     - {t: Enter, h: Fn}
     - ''
@@ -190,14 +190,14 @@ layers:
     - {type: trans}
     - F22
     - '-'
-    - Ctl+Alt+Gui
+    - Hyper-3
     - ''
     - F24
     - Ctl+A
     - KP DIVIDE
     - Ctl+A
     - ''
-    - Ctl+Alt+Gui
+    - Hyper-3
     - {t: Spc, h: Nav, s: Sentence}
     - {t: Enter, h: Fn, type: held}
     - ''
@@ -241,14 +241,14 @@ layers:
     - {type: trans}
     - {type: trans}
     - '-'
-    - Ctl+Alt+Gui
+    - Hyper-3
     - ''
     - F24
     - Ctl+A
     - KP DIVIDE
     - Ctl+A
     - ''
-    - Ctl+Alt+Gui
+    - Hyper-3
     - {t: Spc, h: Nav, s: Sentence}
     - {t: Enter, h: Fn}
     - ''
@@ -292,14 +292,14 @@ layers:
     - {type: trans}
     - {type: trans}
     - '-'
-    - Ctl+Alt+Gui
+    - Hyper-3
     - ''
     - F24
     - Ctl+A
     - KP DIVIDE
     - Ctl+A
     - ''
-    - Ctl+Alt+Gui
+    - Hyper-3
     - {t: Spc, h: Nav, s: Sentence}
     - {t: Enter, h: Fn, type: held}
     - ''
@@ -343,14 +343,14 @@ layers:
     - Right Click
     - {type: trans}
     - '-'
-    - Ctl+Alt+Gui
+    - Hyper-3
     - ''
     - F24
     - Ctl+A
     - KP DIVIDE
     - Ctl+A
     - ''
-    - Ctl+Alt+Gui
+    - Hyper-3
     - {t: Spc, h: Nav, s: Sentence}
     - {t: Enter, h: Fn}
     - ''

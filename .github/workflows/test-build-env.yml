@@ -3,6 +3,9 @@ on:
   workflow_dispatch:
   push:
     paths:
+      - config/**
+      - draw/**
+      - Justfile
       - nix/**
       - flake.*
       - .github/workflows/test-build-env.yml
@@ -33,3 +36,7 @@ jobs:
         run: nix develop --command just build planck
       - name: Test draw recipe
         run: nix develop --command just draw
+      - name: Test D50 draw recipe
+        run: nix develop --command just draw-d50
+      - name: Check draw artifacts are up to date
+        run: git diff --exit-code -- draw/

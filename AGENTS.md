@@ -11,9 +11,10 @@ Guidance for coding agents working in this `zmk-config` repository.
 
 ## Source of Truth
 
-- Read `CLAUDE.md` first; it contains project-specific constraints and keyboard layout context.
+- Read `CLAUDE.md` for orientation, then `docs/d50-map.md` for the canonical physical → emitted keymap map (layers, combos, behaviors, emitted global chords).
 - Respect the existing macro-heavy style from `zmk-helpers`.
 - Prefer existing repository conventions over generic ZMK examples.
+- `draw/hillside_d50.yaml` is the generated machine-readable view; CI fails if it drifts from the keymap, so regenerate it when bindings change.
 
 ## Build, Test, and Validation Commands
 
@@ -28,7 +29,8 @@ Run from repo root. Use `nix develop` when tools are unavailable on host.
 ### Build commands
 
 - `just list` - list valid build targets from `build.yaml`.
-- `just build temper` - build configured Temper targets.
+- `just build hillside` - build the Hillside D50 targets (primary board).
+- `just build temper` - build the legacy Temper targets.
 - `just build all` - build every target in `build.yaml`.
 - `just build <expr>` - build targets matching expression.
 - `just clean` - remove `.build` and `firmware` artifacts.
@@ -36,7 +38,9 @@ Run from repo root. Use `nix develop` when tools are unavailable on host.
 
 ### Draw/visualization
 
-- `just draw` - regenerate keymap artifacts in `draw/`.
+- `just draw` - regenerate the 34-key base artifacts in `draw/`.
+- `just draw-d50` - regenerate `draw/hillside_d50.yaml` + `.svg` (50-key D50).
+- CI enforces that tracked draw artifacts match a fresh regeneration.
 
 ### Test commands
 
@@ -62,6 +66,7 @@ Run from repo root. Use `nix develop` when tools are unavailable on host.
 - `nix develop --command just init`
 - `nix develop --command just build planck`
 - `nix develop --command just draw`
+- `nix develop --command just draw-d50`
 
 These mirror `.github/workflows/test-build-env.yml`.
 
@@ -134,25 +139,45 @@ These are critical and non-optional for this repository.
 
 ## Files and Areas to Know
 
+- `docs/d50-map.md` - canonical map of the Hillside D50 keymap (layers, combos, behaviors, emitted chords).
 - `config/base.keymap` - core layers, behaviors, macros.
+- `config/hillside_d50.keymap` - D50 layer wrapper and the 16 extra keys (primary board).
+- `config/key-labels/hillside_d50.h` - D50 position labels used by combos.
+- `config/boards/shields/hillside_d50/` - D50 shield, dongle, and physical layout definitions.
 - `config/combos.dtsi` - combo definitions.
 - `config/leader.dtsi` - leader sequences.
 - `config/mouse.dtsi` - pointing behavior tuning.
-- `config/temper.keymap` / `config/temper.conf` - shield-specific overrides.
+- `config/temper.keymap` / `config/temper.conf` - legacy Temper shield overrides.
 - `config/west.yml` - pinned ZMK and module dependencies.
 - `Justfile` - canonical local commands.
+
+## Related Repository (Dotfiles)
+
+This repo owns the physical → emitted half of the interaction model. The
+handler half (OmniWM, Karabiner, Ghostty, tmux, zsh, Neovim) lives in the
+chezmoi dotfiles repo at `~/.local/share/chezmoi`; start with its `AGENTS.md`.
+When a change alters an emitted chord, check the handler side before finalizing.
+
+## Changing a Binding
+
+1. Identify the physical origin: layer, key-position label, combo, or leader sequence.
+2. Trace the chord: physical key/layer → emitted chord → global interceptor (Karabiner/OmniWM/Ghostty) → application action.
+3. Pick a single owner for the change; do not duplicate logic across ZMK and handler configs.
+4. Edit with helper macros only (see rules above). Note D50 quirks: extras are layer-independent and the left bottom thumbs are hardcoded in `hillside_d50.keymap` (`docs/d50-map.md`).
+5. Verify: `just draw-d50`, then `just build hillside` (or the specific target).
+6. If the cross-tool contract changed, update `docs/d50-map.md` and the dotfiles `AGENTS.md`.
 
 ## Cursor and Copilot Rules Check
 
 - `.cursor/rules/`: not present.
 - `.cursorrules`: not present.
 - `.github/copilot-instructions.md`: not present.
-- Therefore, `CLAUDE.md` and in-repo conventions are the operative agent rules.
+- Therefore, `AGENTS.md`, `CLAUDE.md`, and in-repo conventions are the operative agent rules.
 
 ## Recommended Agent Workflow
 
-1. Read `CLAUDE.md` and target files before editing.
+1. Read `AGENTS.md`, `CLAUDE.md`, `docs/d50-map.md`, and target files before editing.
 2. Implement changes using helper macros and existing patterns.
-3. Run focused validation (`just build <target>` and/or `just draw`).
+3. Run focused validation (`just build <target>`, `just draw-d50`, and/or `just draw`).
 4. If tests exist for your area, run one case with `just test <testpath>`.
 5. Report what changed, what was run, and any follow-up needed.

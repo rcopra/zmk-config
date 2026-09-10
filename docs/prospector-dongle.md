@@ -1,5 +1,9 @@
 # Prospector Dongle
 
+> **Legacy/fallback board.** Temper is no longer the daily driver; it is kept
+> as a fallback build. The Hillside D50 uses the same dongle architecture — see
+> [d50-map.md](d50-map.md) for the current board.
+
 Working reference for the Prospector dongle (Seeed XIAO nRF52840 + ST7789V 1.69"
 LCD) integrated into the Temper ZMK setup. The dongle runs the keymap as a BLE
 central; both halves bond to it as peripherals.

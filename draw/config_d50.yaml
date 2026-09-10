@@ -17,6 +17,8 @@ parse_config:
     "&bt BT_SEL 2": BT 3
     "&bt BT_SEL 3": BT 4
 
+    "&kp LC(LA(LGUI))": Hyper-3
+
     "&kp LG(C)": Copy
     "&kp LG(X)": Cut
     "&kp LG(V)": Paste
