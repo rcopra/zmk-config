@@ -17,6 +17,19 @@ Working reference for the Prospector dongle (Seeed XIAO nRF52840 + ST7789V 1.69"
 LCD) integrated into the Temper ZMK setup. The dongle runs the keymap as a BLE
 central; both halves bond to it as peripherals.
 
+## Display design workspace
+
+Personal layouts are authored in `~/personal/prospector-zmk-module`, a separate
+clone of the fork. Start with its [design workflow](../../prospector-zmk-module/design/README.md)
+and [display rules](../../prospector-zmk-module/design/display-rules.md).
+The `prospector-display` skill at `~/.agents/skills/prospector-display` guides
+future layout design and debugging.
+
+Run `just preview` in that checkout for native LVGL captures and clipping
+checks, then `just firmware` for the Hillside Vaporwave build. The latter uses
+a local module override and leaves the manifest pin unchanged; the workflow
+document explains how to clear the cached override and publish a pinned release.
+
 ## Hardware
 
 - Carrefinho's Prospector PCB, BOM **without** the APDS9960 ambient light sensor
